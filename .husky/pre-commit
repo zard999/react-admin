@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+# npx husky add .husky/pre-commit "npx lint-staged"
+npm run lint:lint-staged
