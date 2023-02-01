@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# 分析图生成的文件
+stats.html
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
