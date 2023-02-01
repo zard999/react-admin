@@ -2,15 +2,15 @@
  * @Author: zyh
  * @Date: 2023-02-01 16:28:52
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-01 16:35:37
+ * @LastEditTime: 2023-02-01 16:48:39
  * @FilePath: /vite-project/src/App.tsx
  * @Description: App.tsx
  *
  * Copyright (c) 2023 by 穿越, All Rights Reserved.
  */
-import { useState } from 'react';
+import React, { useState } from 'react';
 import reactLogo from './assets/react.svg';
-import './App.css';
+import './App.less';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -33,6 +33,7 @@ function App() {
         </p>
       </div>
       <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
+      <div className="exp">1111</div>
     </div>
   );
 }
