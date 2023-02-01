@@ -31,7 +31,14 @@
       "@": ["src"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "vite.config.ts"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "vite.config.ts",
+    "src/routers/utils/index.ts",
+    "src/components/lazyLoad"
+  ],
   "exclude": ["node_modules", "dist", "**/*.js"]
 
   // "references": [{ "path": "./tsconfig.node.json" }]
