@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-01 17:43:03
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-02 21:30:53
+ * @LastEditTime: 2023-02-02 21:40:33
  * @FilePath: /vite-project/src/routers/index.tsx
  * @Description:
  *
@@ -14,7 +14,7 @@ import { Navigate, useRoutes } from 'react-router-dom';
 import lazyLoad from '@/components/lazyLoad/';
 
 // 导入所有router
-const metaRouters = import.meta.glob('./modules/*.tsx', { eager: true });
+const metaRouters: Record<string, any> = import.meta.glob('./modules/*.tsx', { eager: true });
 
 // * 处理路由
 export const routerArray: RouteObject[] = [];
