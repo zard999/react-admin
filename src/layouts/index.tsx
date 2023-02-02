@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-02 10:02:48
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-02 10:19:52
+ * @LastEditTime: 2023-02-02 17:47:42
  * @FilePath: /vite-project/src/layouts/index.tsx
  * @Description: Layout
  *
@@ -19,9 +19,7 @@ import './index.less';
 
 const { Sider, Content } = Layout;
 
-const LayoutIndex = (props: { name: string }) => {
-  console.log(props);
-
+const LayoutIndex = () => {
   // const { pathname } = useLocation();
 
   return (
