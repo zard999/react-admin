@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-01 16:40:48
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-01 16:45:56
+ * @LastEditTime: 2023-02-02 16:49:15
  * @FilePath: /vite-project/.stylelintrc.js
  * @Description: stylelint 配置文件
  *
@@ -34,6 +34,7 @@ module.exports = {
     'selector-class-pattern': null, // 强制选择器类名的格式
     'value-no-vendor-prefix': null, // 关闭 vendor-prefix(为了解决多行省略 -webkit-box)
     'at-rule-no-unknown': null,
+    'no-invalid-double-slash-comments': null, // 是否禁止无效的双斜杠注释
     'selector-pseudo-class-no-unknown': [
       true,
       {

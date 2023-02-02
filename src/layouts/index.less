@@ -1,0 +1,30 @@
+.ant-layout {
+  height: 100%;
+  .ant-layout-sider {
+    flex: 0 0 220px !important;
+    max-width: 220px !important;
+    & ::-webkit-scrollbar {
+      background-color: #001529;
+    }
+    & ::-webkit-scrollbar-thumb {
+      background-color: #41444b;
+    }
+  }
+  .ant-layout-content {
+    box-sizing: border-box;
+    padding: 20px;
+    margin: 10px 13px;
+    overflow: auto;
+    overflow-x: hidden;
+    background-color: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
