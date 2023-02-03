@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-02 10:08:58
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-02 11:04:13
+ * @LastEditTime: 2023-02-03 10:07:53
  * @FilePath: /vite-project/src/layouts/components/menu/components/logo.tsx
  * @Description: Logo
  *
@@ -10,11 +10,11 @@
  */
 import logo from '@/assets/images/logo.png';
 
-const Logo = () => {
+const Logo = ({ isCollapse }: { isCollapse: boolean }) => {
   return (
     <div className="logo-box">
       <img src={logo} alt="logo" className="logo-img" />
-      <h2 className="logo-text">react Admin</h2>
+      {!isCollapse ? <h2 className="logo-text">react Admin</h2> : null}
     </div>
   );
 };
