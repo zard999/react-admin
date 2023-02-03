@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-02 20:49:50
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-03 12:23:33
+ * @LastEditTime: 2023-02-03 17:46:22
  * @FilePath: /vite-project/src/config/index.ts
  * @Description: config配置文件
  *
@@ -15,7 +15,7 @@ export const HOME_URL: string = '/home/index';
 
 // 路由路径对应的中文名称
 export const ROUTER_CONFIG: Record<string, string> = {
-  home: '首页',
+  index: '首页',
   proTable: '超级表格',
   useHooks1: '使用 Hooks1',
   useHooks2: '使用 Hooks2'

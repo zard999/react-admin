@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-02 17:27:57
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-03 16:49:46
+ * @LastEditTime: 2023-02-03 23:08:46
  * @FilePath: /vite-project/src/stores/global.tsx
  * @Description:
  *
@@ -19,6 +19,8 @@ interface IThemeConfig {
 
 class Global {
   permissions: any[] = ['/home', '/home/index', '/proTable', '/proTable/useHooks1', '/proTable/useHooks2']; // 权限列表
+  // 路径对应的中文名称
+  pathNameMap: Record<string, string> = {};
   userInfo: any = {}; // 用户信息
   isCollapse: boolean = false; // 侧边栏是否折叠
   themeConfig: IThemeConfig = {
@@ -27,6 +29,8 @@ class Global {
     isWeakMode: false,
     isGrayMode: false
   }; // 主题相关配置
+  tabsList: any[] = []; // 标签页列表
+  menuList: any[] = []; // 菜单列表
 
   constructor() {
     makeAutoObservable(this);
@@ -36,12 +40,20 @@ class Global {
     this.isCollapse = isCollapse;
   }
 
-  setIsDarkMode(isDarkMode: boolean) {
-    this.isDarkMode = isDarkMode;
-  }
-
   setThemeConfig(themeConfig: IThemeConfig) {
     this.themeConfig = themeConfig;
+  }
+
+  setTabsList(tabsList: any[]) {
+    this.tabsList = tabsList;
+  }
+
+  setPathNameMap(pathNameMap: Record<string, string>) {
+    this.pathNameMap = pathNameMap;
+  }
+
+  setMenuList(menuList: any[]) {
+    this.menuList = menuList;
   }
 }
 
