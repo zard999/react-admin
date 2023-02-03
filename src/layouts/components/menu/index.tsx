@@ -2,19 +2,20 @@
  * @Author: zyh
  * @Date: 2023-02-02 10:04:20
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-03 09:45:06
+ * @LastEditTime: 2023-02-03 11:37:53
  * @FilePath: /vite-project/src/layouts/components/menu/index.tsx
  * @Description: menu
  *
  * Copyright (c) 2023 by 穿越, All Rights Reserved.
  */
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Menu, type MenuProps } from 'antd';
-import Logo from './components/logo';
+import { useNavigate, type Location } from 'react-router-dom';
 import { rootRouter } from '@/routers';
 import { globalStore } from '@/stores';
 import { observer } from 'mobx-react';
+import useLocationListen from '@/hooks/useLocationListen';
+import { Menu, type MenuProps } from 'antd';
+import Logo from './components/logo';
 import './index.less';
 
 type MenuItem = Required<MenuProps>['items'][number];
@@ -56,17 +57,19 @@ const handleMenuData = (rootRouter: any[], authRouter: any[], newArr: MenuItem[]
 };
 
 const LayoutMenu = observer(() => {
-  const { pathname } = useLocation();
   const navigate = useNavigate();
   const { permissions, isCollapse } = globalStore;
-  const [menuActive, setMenuActive] = useState(pathname);
+  const [menuActive, setMenuActive] = useState('');
   const [menuList, setMenuList] = useState<any[]>([]);
 
   useEffect(() => {
-    console.log('pathname', pathname);
-    setMenuActive(pathname);
     setMenuList(handleMenuData(rootRouter, permissions));
-  }, [pathname]);
+  }, []);
+
+  useLocationListen((location: Location) => {
+    const { pathname } = location;
+    setMenuActive(pathname);
+  });
 
   return (
     <div className="menu">

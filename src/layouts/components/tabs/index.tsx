@@ -2,20 +2,20 @@
  * @Author: zyh
  * @Date: 2023-02-02 16:49:26
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-02 17:00:49
+ * @LastEditTime: 2023-02-03 11:39:12
  * @FilePath: /vite-project/src/layouts/components/tabs/index.tsx
  * @Description: tabs
  *
  * Copyright (c) 2023 by 穿越, All Rights Reserved.
  */
 import { Tabs } from 'antd';
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { type Location } from 'react-router-dom';
+import useLocationListen from '@/hooks/useLocationListen';
 import './index.less';
 
 const LayoutTabs = () => {
-  const { pathname } = useLocation();
-  const [activeValue, setActiveValue] = useState(pathname);
+  const [activeValue, setActiveValue] = useState('');
   const [tabsList] = useState([
     {
       label: '首页',
@@ -63,9 +63,10 @@ const LayoutTabs = () => {
     }
   ]);
 
-  useEffect(() => {
+  useLocationListen((location: Location) => {
+    const { pathname } = location;
     setActiveValue(pathname);
-  }, [pathname]);
+  });
 
   const tabsClick = (path: string) => {
     console.log(path);
