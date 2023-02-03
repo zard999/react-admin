@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-02 10:02:48
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-03 10:08:04
+ * @LastEditTime: 2023-02-03 15:39:48
  * @FilePath: /vite-project/src/layouts/index.tsx
  * @Description: Layout
  *
@@ -42,21 +42,24 @@ const LayoutIndex = observer(() => {
   }, []);
 
   return (
-    <Layout>
-      <Sider trigger={null} collapsible collapsed={isCollapse}>
-        <LayoutMenu></LayoutMenu>
+    <Layout hasSider>
+      <Sider width={260} collapsedWidth={80} trigger={null} collapsed={isCollapse}>
+        <div
+          style={{
+            overflowY: 'auto',
+            height: '100vh',
+            position: 'sticky',
+            top: 0
+          }}
+        >
+          <LayoutMenu></LayoutMenu>
+        </div>
       </Sider>
-      <Layout>
+      <Layout className="site-layout">
         <LayoutHeader></LayoutHeader>
         <LayoutTabs></LayoutTabs>
-        <Content>
-          {/* TransitionGroup 会导致 useEffect 加载两次 && 使用路由懒加载第一次进入没有动画，所以暂时不用过渡动画了 */}
-          {/* <TransitionGroup className="container"> */}
-          {/* exit：表示退出当前页面的时候是否有动画 */}
-          {/* <CSSTransition key={pathname} timeout={200} classNames="fade" exit={false}> */}
+        <Content className="site-content">
           <Outlet></Outlet>
-          {/* </CSSTransition> */}
-          {/* </TransitionGroup> */}
         </Content>
         <LayoutFooter></LayoutFooter>
       </Layout>

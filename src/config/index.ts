@@ -2,9 +2,9 @@
  * @Author: zyh
  * @Date: 2023-02-02 20:49:50
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-03 11:28:14
+ * @LastEditTime: 2023-02-03 12:23:33
  * @FilePath: /vite-project/src/config/index.ts
- * @Description: config
+ * @Description: config配置文件
  *
  * Copyright (c) 2023 by 穿越, All Rights Reserved.
  */
@@ -20,3 +20,6 @@ export const ROUTER_CONFIG: Record<string, string> = {
   useHooks1: '使用 Hooks1',
   useHooks2: '使用 Hooks2'
 };
+
+// 应用相关
+export const ThemeColors = ['#1677ff', '#ee3f4d', '#c08eaf', '#95509f', '#722ed1', '#00b96b', '#7cb305', '#13c2c2', '#d6a01d'];

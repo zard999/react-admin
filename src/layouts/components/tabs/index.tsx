@@ -2,20 +2,23 @@
  * @Author: zyh
  * @Date: 2023-02-02 16:49:26
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-03 11:39:12
+ * @LastEditTime: 2023-02-03 16:51:40
  * @FilePath: /vite-project/src/layouts/components/tabs/index.tsx
  * @Description: tabs
  *
  * Copyright (c) 2023 by 穿越, All Rights Reserved.
  */
-import { Tabs } from 'antd';
 import { useState } from 'react';
 import { type Location } from 'react-router-dom';
+import { globalStore } from '@/stores';
+import { observer } from 'mobx-react';
+import { Tabs } from 'antd';
 import useLocationListen from '@/hooks/useLocationListen';
 import './index.less';
 
-const LayoutTabs = () => {
+const LayoutTabs = observer(() => {
   const [activeValue, setActiveValue] = useState('');
+  const { themeConfig } = globalStore;
   const [tabsList] = useState([
     {
       label: '首页',
@@ -36,30 +39,6 @@ const LayoutTabs = () => {
     {
       label: '使用 Component',
       key: '/useComponent'
-    },
-    {
-      label: '数据可视化',
-      key: '/dashboard'
-    },
-    {
-      label: '内嵌页面',
-      key: '/embedded'
-    },
-    {
-      label: '基础 Form',
-      key: '/basicForm'
-    },
-    {
-      label: '校验 Form',
-      key: '/validateForm'
-    },
-    {
-      label: '动态 Form',
-      key: '/dynamicForm'
-    },
-    {
-      label: '水型图',
-      key: '/waterChart'
     }
   ]);
 
@@ -86,8 +65,9 @@ const LayoutTabs = () => {
         delTabs(path as string);
       }}
       items={tabsList}
+      style={{ background: !themeConfig.isDarkMode ? '#fff' : undefined }}
     />
   );
-};
+});
 
 export default LayoutTabs;

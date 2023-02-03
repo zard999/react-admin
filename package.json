@@ -15,6 +15,7 @@
     "commit": "git add -A && git-cz"
   },
   "dependencies": {
+    "@ant-design/pro-components": "^2.3.52",
     "antd": "^5.1.7",
     "mobx": "^6.7.0",
     "mobx-react": "^7.6.0",
