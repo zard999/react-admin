@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-01 17:44:57
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-04 12:04:14
+ * @LastEditTime: 2023-02-04 12:57:26
  * @FilePath: /vite-project/src/views/login/index.tsx
  * @Description: login
  *
@@ -10,6 +10,7 @@
  */
 import LoginForm from './components/loginForm';
 import logo from '@/assets/images/logo.png';
+
 import './index.less';
 
 const Login = () => {

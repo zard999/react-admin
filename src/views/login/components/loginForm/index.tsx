@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-04 11:51:42
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-04 12:08:53
+ * @LastEditTime: 2023-02-04 13:19:46
  * @FilePath: /vite-project/src/views/login/components/loginForm/index.tsx
  * @Description: 登录表单
  *
@@ -10,13 +10,27 @@
  */
 import { Button, Form, Input } from 'antd';
 import { observer } from 'mobx-react';
+import { useNavigate } from 'react-router-dom';
 import { UserOutlined, LockOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import { useRequest } from 'ahooks';
+import { login } from '@/api/modules/login';
 
 const LoginForm = observer(() => {
+  const navigate = useNavigate();
   const [form] = Form.useForm();
+  const { loading, run } = useRequest(login, {
+    manual: true, // 手动触发
+    onSuccess: (result, params) => {
+      navigate('/home/index');
+      console.log('result', result);
+      console.log('params', params);
+    }
+  });
 
   // login
-  const onFinish = () => {};
+  const onFinish = (loginForm: any) => {
+    run(loginForm);
+  };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
@@ -48,7 +62,7 @@ const LoginForm = observer(() => {
         >
           重置
         </Button>
-        <Button type="primary" htmlType="submit" icon={<UserOutlined />}>
+        <Button loading={loading} type="primary" htmlType="submit" icon={<UserOutlined />}>
           登录
         </Button>
       </Form.Item>

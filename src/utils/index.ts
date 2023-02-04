@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-02 20:47:33
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-03 10:51:50
+ * @LastEditTime: 2023-02-04 12:27:10
  * @FilePath: /vite-project/src/utils/index.ts
  * @Description: 工具函数
  *
@@ -77,3 +77,30 @@ export const findAllBreadcrumb = (menuList: Menu.MenuOptions[]): { [key: string]
   menuList.forEach(item => loop(item));
   return handleBreadcrumbList;
 };
+
+/**
+ * 下载文件
+ * @param {String} href
+ * @param {String} fileName
+ */
+export function downloadFile(href: string, fileName: string) {
+  const a = document.createElement('a');
+  a.href = href;
+  a.download = fileName;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+/**
+ * 下载流数据文件
+ * @param {FileStream} streamData
+ * @param {String} fileName
+ * @param {ContentType} type
+ */
+export function downloadStreamFile(streamData: BlobPart, fileName = '', type?: any) {
+  let blob = new Blob([streamData], { type });
+  const fileUrl = window.URL.createObjectURL(blob);
+  downloadFile(fileUrl, fileName);
+  window.URL.revokeObjectURL(fileUrl); // 释放内存
+}

@@ -41,9 +41,9 @@ const fn = (mode: ConfigEnv): UserConfig => {
       // 代理跨域（mock 不需要配置，这里只是个事列）
       proxy: {
         '/api': {
-          target: 'https://mock.mengxuegu.com/mock/62abda3212c1416424630a45', // easymock
-          changeOrigin: true,
-          rewrite: path => path.replace(/^\/api/, '')
+          target: 'https://www.fastmock.site/mock/d6f0134049a0e22b01d7aae6fafc9045', // easymock
+          changeOrigin: true
+          // rewrite: path => path.replace(/^\/api/, '')
         }
       }
     },
