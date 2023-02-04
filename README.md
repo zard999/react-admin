@@ -23,13 +23,13 @@
 
 ### 介绍 📖
 
-🚀🚀🚀 React Admin，基于 React18、React-Router v6、Ant-Design5、Mobx6 && AHooks、React-Hooks、TypeScript、Vite4、 开源的一套后台管理框架。
+🚀🚀🚀 React Admin，基于 React18、Vite4、React-Router v6、Ant-Design5、Mobx6 && AHooks、React-Hooks、TypeScript 开源的一套后台管理框架。
 
 ### 二、Git 仓库地址 (欢迎 Star⭐)
 
-- Gitee：https://gitee.com/zard999/React-Admin
+- Gitee：https://gitee.com/zard1967/react-admin
 
-- GitHub：https://github.com/zard999/React-Admin
+- GitHub：https://github.com/zard999/react-admin
 
 ### 三、🔨🔨🔨 项目功能
 
