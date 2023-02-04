@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-01 13:37:30
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-01 13:37:35
+ * @LastEditTime: 2023-02-04 12:01:59
  * @FilePath: /vite-project/src/types/global.d.ts
  * @Description: global.d.ts
  *
@@ -42,3 +42,5 @@ declare interface MenuInfo {
   item: React.ReactInstance;
   domEvent: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>;
 }
+
+declare module 'js-md5';

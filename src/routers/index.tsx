@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-01 17:43:03
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-02 21:40:33
+ * @LastEditTime: 2023-02-04 11:48:43
  * @FilePath: /vite-project/src/routers/index.tsx
  * @Description:
  *
@@ -28,7 +28,7 @@ console.log('routerArray', routerArray);
 export const rootRouter: RouteObject[] = [
   {
     path: '/',
-    element: <Navigate to="/home/index" />
+    element: <Navigate to="/login" />
   },
   {
     path: '/login',

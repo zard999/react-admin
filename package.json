@@ -17,6 +17,7 @@
   "dependencies": {
     "@ant-design/pro-components": "^2.3.52",
     "antd": "^5.1.7",
+    "js-md5": "^0.7.3",
     "mobx": "^6.7.0",
     "mobx-react": "^7.6.0",
     "react": "^18.2.0",
@@ -26,6 +27,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.4.2",
     "@commitlint/config-conventional": "^17.4.2",
+    "@types/js-md5": "^0.7.0",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
     "@typescript-eslint/eslint-plugin": "^5.50.0",
