@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-01 16:28:52
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-03 17:16:21
+ * @LastEditTime: 2023-02-06 17:57:34
  * @FilePath: /vite-project/src/App.tsx
  * @Description: App.tsx
  *
@@ -29,13 +29,13 @@ const App = observer(() => {
   initTheme();
   console.log('执行了');
   return (
-    <AuthRouter>
-      <DarkModeConfigProvider>
-        <ThemeColorConfigProvider>
+    <DarkModeConfigProvider>
+      <ThemeColorConfigProvider>
+        <AuthRouter>
           <Router />
-        </ThemeColorConfigProvider>
-      </DarkModeConfigProvider>
-    </AuthRouter>
+        </AuthRouter>
+      </ThemeColorConfigProvider>
+    </DarkModeConfigProvider>
   );
 });
 

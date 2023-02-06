@@ -21,9 +21,9 @@
 
 [在线演示]()
 
-### 介绍 📖
+### 一、介绍 📖
 
-🚀🚀🚀 React Admin，基于 React18、Vite4、React-Router v6、Ant-Design5、Mobx6 && AHooks、React-Hooks、TypeScript 开源的一套后台管理框架。
+🚀🚀🚀 React Admin，基于 React18、Electron（可选）、Vite4、React-Router v6、Ant-Design5、Mobx6 && AHooks、React-Hooks、TypeScript 开源的一套后台管理框架。
 
 ### 二、Git 仓库地址 (欢迎 Star⭐)
 
@@ -33,9 +33,9 @@
 
 ### 三、🔨🔨🔨 项目功能
 
-- 🚀 采用最新技术找开发：React18、React-Router v6、Mobx6、AHooks、TypeScript、Vite4
+- 🚀 采用最新技术找开发：React18、ELectron、React-Router v6、Mobx6、AHooks、TypeScript、Vite4
 - 🚀 采用 Vite4 作为项目开发、打包工具（配置了 Gzip 打包、跨域代理、打包预览工具……）
-- 🚀 整个项目集成了 TypeScript
+- 🚀 整个项目集成了 TypeScript （完全是为了想学习 🤣）
 - 🚀 使用 Mobx 做状态管理，集成 mobx-react 开发，使用 mobx-persist-store 实现持久化存储
 - 🚀 使用 TypeScript 对 Axios 整个二次封装 （全局错误拦截、常用请求封装、全局请求 Loading、取消重复请求……）
 - 🚀 支持 Antd 组件大小切换、暗黑 && 灰色 && 色弱模式
@@ -70,6 +70,18 @@ yarn build:test
 
 # 生产环境
 yarn build:pro
+```
+
+- **Build Electron：**
+
+```text
+# windows
+yarn build:win32
+yarn build:win64
+
+# mac
+yarn build:mac
+
 ```
 
 - **Lint：**

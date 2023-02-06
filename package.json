@@ -1,12 +1,20 @@
 {
   "name": "react-admin",
   "private": true,
+  "author": "zyh",
   "version": "1.0.0",
+  "main": "dist-electron/main.js",
   "scripts": {
     "dev": "vite",
+    "dev:exe": "vite -m electron",
     "build:dev": "tsc && vite build --mode development",
     "build:test": "tsc && vite build --mode test",
     "build:pro": "tsc && vite build --mode production",
+    "build:electron": "tsc && vite build --mode electron",
+    "build:win32": "npm run build:electron && electron-builder --win --ia32",
+    "build:win64": "npm run build:electron && electron-builder --win --x64",
+    "build:mac": "npm run build:electron && electron-builder --mac",
+    "server:exe": "npm run build && electron . prod",
     "lint:eslint": "eslint --fix --ext .js,.ts,.tsx ./src",
     "lint:prettier": "prettier --write --loglevel warn \"src/**/*.{js,ts,json,tsx,css,less,scss,html,md}\"",
     "lint:lint-staged": "lint-staged",
@@ -31,6 +39,7 @@
     "@commitlint/cli": "^17.4.2",
     "@commitlint/config-conventional": "^17.4.2",
     "@types/js-md5": "^0.7.0",
+    "@types/node": "^18.11.19",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
     "@typescript-eslint/eslint-plugin": "^5.50.0",
@@ -38,6 +47,8 @@
     "@vitejs/plugin-react": "^3.0.0",
     "commitizen": "^4.3.0",
     "cz-git": "^1.4.1",
+    "electron": "^22.2.0",
+    "electron-builder": "^23.6.0",
     "eslint": "^8.33.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
@@ -58,12 +69,65 @@
     "typescript": "^4.9.3",
     "vite": "^4.0.0",
     "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-electron": "^0.11.1",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-html": "^3.2.0"
   },
   "config": {
     "commitizen": {
       "path": "node_modules/cz-git"
+    }
+  },
+  "build": {
+    "appId": "com.react.admin.zyh",
+    "productName": "react-admin",
+    "copyright": "Copyright © 2023 ${author}",
+    "asar": false,
+    "extends": null,
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*"
+    ],
+    "directories": {
+      "output": "package"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "msi"
+      ],
+      "icon": "assets/icons/icon.ico"
+    },
+    "nsis": {
+      "language": 2052,
+      "allowElevation": true,
+      "installerHeader": "assets/icons/icon.ico",
+      "installerHeaderIcon": "assets/icons/icon.ico",
+      "uninstallerIcon": "assets/icons/icon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false
     }
   }
 }

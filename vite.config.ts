@@ -6,14 +6,47 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import viteCompression from 'vite-plugin-compression';
 import eslintPlugin from 'vite-plugin-eslint';
+import electronPlugin from 'vite-plugin-electron';
+
+const getPath = (_path: string) => resolve(__dirname, _path);
 
 const fn = (mode: ConfigEnv): UserConfig => {
   const env = loadEnv(mode.mode, process.cwd());
   const viteEnv = wrapperEnv(env);
-
+  const plugins = [
+    react(),
+    createHtmlPlugin({
+      inject: {
+        data: {
+          title: viteEnv.VITE_GLOB_APP_TITLE
+        }
+      }
+    }),
+    // * EsLint 报错信息显示在浏览器界面上
+    eslintPlugin(),
+    // * 是否生成包预览(包文件过大，进行打包分析以此优化)
+    viteEnv.VITE_REPORT && (visualizer({ filename: 'stats.html', open: true }) as PluginOption),
+    // * gzip compress压缩
+    viteEnv.VITE_BUILD_GZIP &&
+      viteCompression({
+        verbose: true,
+        disable: false,
+        threshold: 10240,
+        algorithm: 'gzip',
+        ext: '.gz'
+      })
+  ];
+  // if (mode.mode === 'electron') {
+  plugins.push(
+    electronPlugin({
+      entry: ['electron/main.ts', 'electron/preload.ts'] // 主进程文件、预加载文件
+    })
+  );
+  // }
   return {
     // base: "/",
     // alias config
+    publicDir: getPath('public'),
     resolve: {
       alias: {
         '@': resolve(__dirname, './src')
@@ -37,7 +70,7 @@ const fn = (mode: ConfigEnv): UserConfig => {
       port: viteEnv.VITE_PORT,
       open: viteEnv.VITE_OPEN,
       cors: true,
-      // https: false,
+      // https: false,a
       // 代理跨域（mock 不需要配置，这里只是个事列）
       proxy: {
         '/api': {
@@ -48,29 +81,7 @@ const fn = (mode: ConfigEnv): UserConfig => {
       }
     },
     // plugins
-    plugins: [
-      react(),
-      createHtmlPlugin({
-        inject: {
-          data: {
-            title: viteEnv.VITE_GLOB_APP_TITLE
-          }
-        }
-      }),
-      // * EsLint 报错信息显示在浏览器界面上
-      eslintPlugin(),
-      // * 是否生成包预览(包文件过大，进行打包分析以此优化)
-      viteEnv.VITE_REPORT && (visualizer({ filename: 'stats.html', open: true }) as PluginOption),
-      // * gzip compress压缩
-      viteEnv.VITE_BUILD_GZIP &&
-        viteCompression({
-          verbose: true,
-          disable: false,
-          threshold: 10240,
-          algorithm: 'gzip',
-          ext: '.gz'
-        })
-    ],
+    plugins,
     esbuild: {
       pure: viteEnv.VITE_DROP_CONSOLE ? ['console.log', 'debugger'] : []
     },
