@@ -35,8 +35,8 @@
 
 - 🚀 采用最新技术找开发：React18、React-Router v6、Mobx6、AHooks、TypeScript、Vite4
 - 🚀 采用 Vite4 作为项目开发、打包工具（配置了 Gzip 打包、跨域代理、打包预览工具……）
-- 🚀 整个项目集成了 TypeScript （完全是为了想学习 🤣）
-- 🚀 使用 Mobx 做状态管理，集成 mobx-react 开发
+- 🚀 整个项目集成了 TypeScript
+- 🚀 使用 Mobx 做状态管理，集成 mobx-react 开发，使用 mobx-persist-store 实现持久化存储
 - 🚀 使用 TypeScript 对 Axios 整个二次封装 （全局错误拦截、常用请求封装、全局请求 Loading、取消重复请求……）
 - 🚀 支持 Antd 组件大小切换、暗黑 && 灰色 && 色弱模式
 - 🚀 使用 自定义高阶组件 进行路由权限拦截（404 页面）、页面按钮权限配置
