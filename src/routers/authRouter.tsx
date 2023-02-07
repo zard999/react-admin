@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-02 20:43:52
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-06 18:51:59
+ * @LastEditTime: 2023-02-07 17:31:47
  * @FilePath: /vite-project/src/routers/authRouter.tsx
  * @Description: 路由守卫组件
  *
@@ -16,9 +16,21 @@ import { globalStore } from '@/stores';
  * */
 const AuthRouter = (props: { children: JSX.Element }) => {
   // * Dynamic Router(动态路由，根据后端返回的菜单数据生成的一维数组)
-  const { permissions } = globalStore;
-
+  const { permissions, userInfo } = globalStore;
   const { pathname } = useLocation();
+
+  // * 判断是否有token
+  if (!userInfo.token && pathname !== '/login') {
+    // * 没有 token，重定向到登录页
+    return <Navigate to="/login" />;
+  }
+
+  if (userInfo.token) {
+    // * 如果有token，判断是否是登录页，如果是登录页，重定向到首页
+    if (pathname === '/login') {
+      return <Navigate to="/home/index" />;
+    }
+  }
 
   if (pathname.indexOf('/dist/index.html') !== -1) {
     return <Navigate to="/" />;

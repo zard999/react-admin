@@ -36,13 +36,13 @@ const fn = (mode: ConfigEnv): UserConfig => {
         ext: '.gz'
       })
   ];
-  // if (mode.mode === 'electron') {
-  plugins.push(
-    electronPlugin({
-      entry: ['electron/main.ts', 'electron/preload.ts'] // 主进程文件、预加载文件
-    })
-  );
-  // }
+  if (mode.mode === 'electron') {
+    plugins.push(
+      electronPlugin({
+        entry: ['electron/main.ts', 'electron/preload.ts'] // 主进程文件、预加载文件
+      })
+    );
+  }
   return {
     // base: "/",
     // alias config
@@ -74,7 +74,7 @@ const fn = (mode: ConfigEnv): UserConfig => {
       // 代理跨域（mock 不需要配置，这里只是个事列）
       proxy: {
         '/api': {
-          target: 'https://www.fastmock.site/mock/d6f0134049a0e22b01d7aae6fafc9045', // easymock
+          target: 'http://127.0.0.1:7001', // easymock
           changeOrigin: true
           // rewrite: path => path.replace(/^\/api/, '')
         }

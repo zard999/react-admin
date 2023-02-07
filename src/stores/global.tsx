@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-02 17:27:57
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-06 11:03:53
+ * @LastEditTime: 2023-02-07 17:29:46
  * @FilePath: /vite-project/src/stores/global.tsx
  * @Description: globalStore
  *
@@ -20,7 +20,7 @@ interface IThemeConfig {
 
 class Global {
   permissions: any[] = ['/home', '/home/index', '/proTable', '/proTable/useHooks1', '/proTable/useHooks2']; // 权限列表
-  userInfo: any = {}; // 用户信息
+  userInfo: Record<string, any> = {}; // 用户信息
   isCollapse: boolean = false; // 侧边栏是否折叠
   themeConfig: IThemeConfig = {
     themeColor: '#1677ff',
@@ -54,6 +54,16 @@ class Global {
 
   setMenuList(menuList: any[]) {
     this.menuList = menuList;
+  }
+
+  // 设置用户信息
+  setUserInfo(userInfo: Record<string, any>) {
+    this.userInfo = userInfo;
+  }
+
+  // 清除用户信息
+  clearUserInfo() {
+    this.userInfo = {};
   }
 }
 

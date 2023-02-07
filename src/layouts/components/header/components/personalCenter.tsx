@@ -2,15 +2,16 @@
  * @Author: zyh
  * @Date: 2023-02-02 10:06:46
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-03 17:19:59
+ * @LastEditTime: 2023-02-07 17:30:41
  * @FilePath: /vite-project/src/layouts/components/header/components/personalCenter.tsx
  * @Description: avatar
  *
  * Copyright (c) 2023 by 穿越, All Rights Reserved.
  */
+import { useNavigate } from 'react-router-dom';
+import { globalStore } from '@/stores';
 import { Avatar, Modal, Dropdown, message, type MenuProps } from 'antd';
 import { ExclamationCircleOutlined, FormOutlined, PoweroffOutlined, IdcardOutlined, DownOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
 import avatar from '@/assets/images/avatar.png';
 
 const enum PersonalCenterMenuKeys {
@@ -20,6 +21,7 @@ const enum PersonalCenterMenuKeys {
 }
 const PersonalCenter = () => {
   const navigate = useNavigate();
+  const { userInfo } = globalStore;
 
   const items: MenuProps['items'] = [
     {
@@ -50,6 +52,7 @@ const PersonalCenter = () => {
       cancelText: '取消',
       onOk: () => {
         message.success('退出登录成功！');
+        globalStore.clearUserInfo();
         navigate('/login');
       }
     });
@@ -85,14 +88,14 @@ const PersonalCenter = () => {
             cursor: 'pointer'
           }}
         >
-          <Avatar size="large" src={avatar} />
+          <Avatar size="large" src={userInfo?.avatar || avatar} />
           <span
             style={{
               margin: '0 10px'
             }}
             className="username"
           >
-            Hooks
+            {userInfo?.username}
           </span>
           <DownOutlined />
         </div>

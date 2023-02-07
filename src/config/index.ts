@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-02 20:49:50
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-04 12:23:02
+ * @LastEditTime: 2023-02-07 16:13:50
  * @FilePath: /vite-project/src/config/index.ts
  * @Description: config配置文件
  *
@@ -44,8 +44,9 @@ export const HttpStatus = {
   505: 'HTTP版本不受支持'
 };
 export interface DTO<ResDataType = any> {
-  Code: HttpStatusCode;
-  Data: ResDataType;
-  Message: string | undefined;
+  msg: string;
+  code: HttpStatusCode;
+  data: ResDataType;
+  meg: string | undefined;
   Success: boolean;
 }

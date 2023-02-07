@@ -6,7 +6,7 @@
   "main": "dist-electron/main.js",
   "scripts": {
     "dev": "vite",
-    "dev:exe": "vite -m electron",
+    "dev:exe": "vite --open=false -m electron",
     "build:dev": "tsc && vite build --mode development",
     "build:test": "tsc && vite build --mode test",
     "build:pro": "tsc && vite build --mode production",

@@ -2,8 +2,9 @@ import axios from 'axios';
 import type { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios';
 import { ApiTimeout, HttpStatus } from '@/config';
 import type { DTO, HttpStatusCode } from '@/config';
-import { message } from 'antd';
+import { globalStore } from '@/stores';
 import { downloadStreamFile } from '@/utils/';
+import { message, Modal } from 'antd';
 
 class Request {
   private instance: AxiosInstance;
@@ -32,14 +33,24 @@ class Request {
         const { headers, data } = response;
         if (headers['content-type']?.includes('application/json')) {
           // 服务端自定义的一套状态码，并不是真实的http状态码，如果处理http状态码错误，请至下面error错误函数中修改
-          if (data.Code !== 200) {
-            const errorText = data.Message || HttpStatus[data.Code as HttpStatusCode] || 'HTTP响应错误';
-            // todo: 401 退出登录
-            data.Code === 401 && 1; // 退出登录
+          console.log('data', data);
+          if (data.code !== 200) {
+            const errorText = data.msg || HttpStatus[data.code as HttpStatusCode] || 'HTTP响应错误';
+            // 401：token已失效
+            if (data.code === 401) {
+              Modal.info({
+                title: '登录信息已失效，请重新登录！！！',
+                okText: '确定',
+                onOk() {
+                  globalStore.clearUserInfo();
+                  window.location.hash = '/login';
+                }
+              });
+            }
             message.error(errorText);
             return Promise.reject(errorText);
           }
-          message.success(data.Message);
+          message.success(data.msg);
         }
         return response;
       },
@@ -58,7 +69,7 @@ class Request {
    * @returns {DTO.Data} return response.data.Data
    */
   public get<ResData = any>(url: string, config?: AxiosRequestConfig): Promise<ResData> {
-    return this.instance.get<DTO<ResData>>(url, config).then(({ data }) => data.Data);
+    return this.instance.get<DTO<ResData>>(url, config).then(({ data }) => data.data);
   }
 
   /**
@@ -69,7 +80,7 @@ class Request {
    * @returns {DTO.Data} 直接返回数据部分 return response.data.Data
    */
   public post<Params = any, ResData = any>(url: string, data: Params, config?: AxiosRequestConfig): Promise<ResData> {
-    return this.instance.post<DTO<ResData>>(url, data, config).then(({ data }) => data.Data);
+    return this.instance.post<DTO<ResData>>(url, data, config).then(({ data }) => data.data);
   }
 
   /**

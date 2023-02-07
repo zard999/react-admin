@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-04 11:51:42
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-04 13:19:46
+ * @LastEditTime: 2023-02-07 18:09:56
  * @FilePath: /vite-project/src/views/login/components/loginForm/index.tsx
  * @Description: 登录表单
  *
@@ -13,7 +13,8 @@ import { observer } from 'mobx-react';
 import { useNavigate } from 'react-router-dom';
 import { UserOutlined, LockOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { useRequest } from 'ahooks';
-import { login } from '@/api/modules/login';
+import { login } from '@/api/modules/user';
+import { globalStore } from '@/stores';
 
 const LoginForm = observer(() => {
   const navigate = useNavigate();
@@ -22,8 +23,8 @@ const LoginForm = observer(() => {
     manual: true, // 手动触发
     onSuccess: (result, params) => {
       navigate('/home/index');
-      console.log('result', result);
-      console.log('params', params);
+      globalStore.setUserInfo(result);
+      console.log('params', result, params);
     }
   });
 
@@ -48,10 +49,10 @@ const LoginForm = observer(() => {
       autoComplete="off"
     >
       <Form.Item name="username" rules={[{ required: true, message: '请输入用户名' }]}>
-        <Input placeholder="请输入用户名" prefix={<UserOutlined />} />
+        <Input placeholder="admin" prefix={<UserOutlined />} />
       </Form.Item>
       <Form.Item name="password" rules={[{ required: true, message: '请输入密码' }]}>
-        <Input.Password autoComplete="new-password" placeholder="请输入用户名" prefix={<LockOutlined />} />
+        <Input.Password autoComplete="new-password" placeholder="123456" prefix={<LockOutlined />} />
       </Form.Item>
       <Form.Item className="login-btn">
         <Button
