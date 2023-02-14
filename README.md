@@ -103,3 +103,7 @@ yarn lint:stylelint
 # 提交代码（会自动执行 lint:lint-staged 命令）
 yarn commit
 ```
+
+### 五、📦 docker 以及 docker-compose 部署
+
+> docker build -t react-admin:v1 .
