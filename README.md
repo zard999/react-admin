@@ -106,4 +106,8 @@ yarn commit
 
 ### 五、📦 docker 以及 docker-compose 部署
 
-> docker build -t react-admin:v1 .
+1. docker build -t react-admin:v1 .
+
+> 可能需要在加前缀 **DOCKER_BUILDKIT=0**
+
+2. docker run -d -p 80:80 --name react-admin react-admin:v1

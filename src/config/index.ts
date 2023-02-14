@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-02 20:49:50
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-07 16:13:50
+ * @LastEditTime: 2023-02-14 17:22:50
  * @FilePath: /vite-project/src/config/index.ts
  * @Description: config配置文件
  *
@@ -25,7 +25,6 @@ export const ROUTER_CONFIG: Record<string, string> = {
 export const ThemeColors = ['#1677ff', '#ee3f4d', '#c08eaf', '#95509f', '#722ed1', '#00b96b', '#7cb305', '#13c2c2', '#d6a01d'];
 
 // 请求相关
-export const ApiBaseUrl = 'https://www.fastmock.site/mock/d6f0134049a0e22b01d7aae6fafc9045/api';
 export const ApiTimeout = 30000;
 export const ApiSessionKey = 'token';
 export type HttpStatusCode = keyof typeof HttpStatus;
