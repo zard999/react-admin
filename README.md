@@ -111,3 +111,6 @@ yarn commit
 > 可能需要在加前缀 **DOCKER_BUILDKIT=0**
 
 2. docker run -d -p 80:80 --name react-admin react-admin:v1
+
+3. docker-compose 在另一个项目一起部署
+   > https://github.com/zard999/cost-egg
