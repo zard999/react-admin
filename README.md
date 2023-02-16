@@ -108,6 +108,7 @@ yarn commit
 
 1. docker build -t react-admin:v1 .
 
+> m1 打包运行：docker buildx --platform linux/amd64 build -t react-admin:v1 .
 > 可能需要在加前缀 **DOCKER_BUILDKIT=0**
 
 2. docker run -d -p 80:80 --name react-admin react-admin:v1
