@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-01 17:43:03
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-15 13:51:53
+ * @LastEditTime: 2023-02-16 18:50:23
  * @FilePath: /vite-project/src/routers/index.tsx
  * @Description:
  *
@@ -23,7 +23,7 @@ Object.keys(metaRouters).forEach((item: any) => {
     routerArray.push(...metaRouters[item][key]);
   });
 });
-routerArray.sort((a: RouteObject, b: RouteObject) => a.meta.sort - b.meta.sort);
+routerArray.sort((a: any, b: any) => a.meta.sort - b.meta.sort);
 console.log('routerArray', routerArray);
 
 export const rootRouter: RouteObject[] = [

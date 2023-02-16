@@ -1,0 +1,1 @@
+import{j as e,a as r,B as t}from"./index-cebe61c5.js";import{u as n,b as a}from"./user-5d812f9c.js";import"./throttle-152e3cff.js";const p=()=>{const{loading:s,run:o}=n(a,{manual:!0,onSuccess:(u,i)=>{}});return e("div",{children:["useHooks2",r(t,{loading:s,onClick:()=>o(),type:"primary",children:"获取用户信息"})]})};export{p as default};
