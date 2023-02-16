@@ -1,3 +1,13 @@
+/*
+ * @Author: zyh
+ * @Date: 2023-02-02 18:18:45
+ * @LastEditors: zyh
+ * @LastEditTime: 2023-02-15 13:43:29
+ * @FilePath: /vite-project/src/routers/modules/proTable.tsx
+ * @Description:
+ *
+ * Copyright (c) 2023 by 穿越, All Rights Reserved.
+ */
 import LayoutIndex from '@/layouts';
 import lazyLoad from '@/components/lazyLoad';
 import { lazy } from 'react';
@@ -7,7 +17,8 @@ const homeRouter = [
     element: <LayoutIndex />,
     meta: {
       title: '超级表格',
-      icon: <TableOutlined />
+      icon: <TableOutlined />,
+      sort: 2
     },
     path: '/proTable',
     children: [

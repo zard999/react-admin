@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-02 17:44:00
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-03 23:48:43
+ * @LastEditTime: 2023-02-15 13:43:21
  * @FilePath: /vite-project/src/routers/modules/home.tsx
  * @Description: home路由
  *
@@ -18,7 +18,8 @@ const homeRouter = [
     path: '/home',
     meta: {
       title: '首页',
-      icon: <HomeOutlined />
+      icon: <HomeOutlined />,
+      sort: 1
     },
     children: [
       {

@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-04 12:32:18
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-07 18:14:31
+ * @LastEditTime: 2023-02-16 11:10:55
  * @FilePath: /vite-project/src/api/modules/user.ts
  * @Description: login api
  *
@@ -16,3 +16,12 @@ export const login = async (params: Expand<API.LoginParams>) =>
 
 // 获取用户信息
 export const getUserInfo = async () => request.get('/user/getUserInfo');
+
+// 获取用户列表
+export const getUserList = async (params: Expand<API.UserListParams>) =>
+  request.get('/user/getUserList', {
+    params
+  });
+
+// 新增用户
+export const addUser = async (params: Expand<API.AddUserParams>) => request.post('/user/register', params);

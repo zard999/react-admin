@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-04 12:39:35
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-04 12:50:26
+ * @LastEditTime: 2023-02-16 10:34:07
  * @FilePath: /vite-project/src/types/api.d.ts
  * @Description: 请求数据类型定义
  *
@@ -74,5 +74,22 @@ declare namespace API {
   interface LoginParams {
     username: string;
     password: string;
+  }
+
+  interface AddUserParams {
+    username: string;
+    password: string;
+  }
+
+  interface UserListParams {
+    current: number;
+    pageSize: number;
+  }
+
+  interface UserListData {
+    list: Array<UserInfo>;
+    current: number;
+    pageSize: number;
+    total: number;
   }
 }

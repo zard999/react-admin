@@ -11,7 +11,7 @@ class Request {
 
   private baseConfig: AxiosRequestConfig = {
     // 默认地址请求地址，可在 .env 开头文件中修改
-    baseURL: import.meta.env.VITE_API_URL as string,
+    baseURL: import.meta.env.VITE_API_URL,
     timeout: ApiTimeout
   };
 
@@ -21,6 +21,11 @@ class Request {
     // 请求拦截器
     this.instance.interceptors.request.use(
       config => {
+        // 在这里可以添加一些请求前的操作
+        const token = globalStore.userInfo?.token;
+        if (token) {
+          config.headers.authorization = `${token}`;
+        }
         return config;
       },
       error => {
@@ -56,7 +61,15 @@ class Request {
       },
       error => {
         // 这里处理http状态码错误
-        message.error(`${error.message}, 请检查网络或联系管理员`);
+        // 对响应错误做点什么
+        if (error.message.indexOf('timeout') != -1) {
+          message.error('网络超时');
+        } else if (error.message == 'Network Error') {
+          message.error('网络连接错误');
+        } else {
+          if (error.response.data) message.error(error.response.statusText);
+          else message.error('接口路径找不到');
+        }
         return Promise.reject(error);
       }
     );
@@ -68,7 +81,7 @@ class Request {
    * @param config
    * @returns {DTO.Data} return response.data.Data
    */
-  public get<ResData = any>(url: string, config?: AxiosRequestConfig): Promise<ResData> {
+  public get<ResData = any>(url: string, config?: any): Promise<ResData> {
     return this.instance.get<DTO<ResData>>(url, config).then(({ data }) => data.data);
   }
 
@@ -130,5 +143,64 @@ class Request {
     return this.instance.request<DTO<ResData>>(config).then(response => response.data);
   }
 }
+
+const service = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
+  timeout: ApiTimeout
+});
+
+// 添加请求拦截器
+service.interceptors.request.use(config => {
+  // 在这里可以添加一些请求前的操作
+  const token = globalStore.userInfo?.token;
+  // 在发送请求之前做些什么 token
+  if (token) {
+    config.headers['authorization'] = token;
+  }
+  return config;
+});
+
+// 添加响应拦截器
+service.interceptors.response.use(
+  /* 约束一下response */
+  async (response: AxiosResponse<DTO>) => {
+    const { headers, data } = response;
+    if (headers['content-type']?.includes('application/json')) {
+      // 服务端自定义的一套状态码，并不是真实的http状态码，如果处理http状态码错误，请至下面error错误函数中修改
+      console.log('data', data);
+      if (data.code !== 200) {
+        const errorText = data.msg || HttpStatus[data.code as HttpStatusCode] || 'HTTP响应错误';
+        // 401：token已失效
+        if (data.code === 401) {
+          Modal.info({
+            title: '登录信息已失效，请重新登录！！！',
+            okText: '确定',
+            onOk() {
+              globalStore.clearUserInfo();
+              window.location.hash = '/login';
+            }
+          });
+        }
+        message.error(errorText);
+        return Promise.reject(errorText);
+      }
+      message.success(data.msg);
+    }
+    return response;
+  },
+  error => {
+    // 这里处理http状态码错误
+    // 对响应错误做点什么
+    if (error.message.indexOf('timeout') != -1) {
+      message.error('网络超时');
+    } else if (error.message == 'Network Error') {
+      message.error('网络连接错误');
+    } else {
+      if (error.response.data) message.error(error.response.statusText);
+      else message.error('接口路径找不到');
+    }
+    return Promise.reject(error);
+  }
+);
 
 export default new Request();
