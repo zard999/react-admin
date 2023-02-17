@@ -5,7 +5,9 @@
 </p>
 <h1 align="center">React Admin 🔥 (under development)</h1>
 
-<div align="center">中后台管理系统通用模板</div>
+<div align="center">Common template for the middle and background management system</div>
+
+简体中文 | [English ](./README.md)
 
 <div align="center">
 <br />
@@ -19,32 +21,32 @@
 <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/strivelen/fine-admin/total">
 </div>
 
-[在线演示]()
+[Online presentation]()
 
-### 一、介绍 📖
+### 一、Introduce 📖
 
-🚀🚀🚀 React Admin，基于 React18、Electron（可选）、Vite4、React-Router v6、Ant-Design5、Mobx6 && AHooks、React-Hooks、TypeScript 开源的一套后台管理框架。
+🚀🚀🚀 React Admin, a background management framework based on React18, Electron (optional), Vite4, React-Router v6, Ant-Design5, Mobx6&&AHooks, React-Hooks, TypeScript.
 
-### 二、Git 仓库地址 (欢迎 Star⭐)
+### 二、Git Warehouse address (Welcome Star⭐)
 
 - Gitee：https://gitee.com/zard1967/react-admin
 
 - GitHub：https://github.com/zard999/react-admin
 
-### 三、🔨🔨🔨 项目功能
+### 三、🔨🔨🔨 Project function
 
-- 🚀 采用最新技术找开发：React18、ELectron、React-Router v6、Mobx6、AHooks、TypeScript、Vite4
-- 🚀 采用 Vite4 作为项目开发、打包工具（配置了 Gzip 打包、跨域代理、打包预览工具……）
-- 🚀 整个项目集成了 TypeScript （完全是为了想学习 🤣）
-- 🚀 使用 Mobx 做状态管理，集成 mobx-react 开发，使用 mobx-persist-store 实现持久化存储
-- 🚀 使用 TypeScript 对 Axios 整个二次封装 （全局错误拦截、常用请求封装、全局请求 Loading、取消重复请求……）
-- 🚀 支持 Antd 组件大小切换、暗黑 && 灰色 && 色弱模式
-- 🚀 使用 自定义高阶组件 进行路由权限拦截（404 页面）、页面按钮权限配置
-- 🚀 支持 React-Router v6 路由懒加载配置、菜单手风琴模式、无限级菜单、多标签页、面包屑导航
-- 🚀 使用 Prettier 统一格式化代码，集成 Eslint、Stylelint 代码校验规范（项目规范配置）
-- 🚀 使用 husky、lint-staged、commitlint、commitizen、cz-git 规范提交信息（项目规范配置）
+- 🚀 Use the latest technology to find development：React18、ELectron、React-Router v6、Mobx6、AHooks、TypeScript、Vite4
+- 🚀 Vite4 was adopted as the project development and packaging tool (Gzip packaging, cross-domain proxy, packaging preview tool...).
+- 🚀 The entire project integrates TypeScript (totally for learning 🤣)
+- 🚀 Use mobx for state management, integrate Mox-react development, and use Mox-persist -store to implement persistent storage
+- 🚀 Use TypeScript to wrap Axios twice (global error interception, common request encapsulation, global request Loading, unrepeat requests...).
+- 🚀 Antd component size switch, dark and gray and weak mode
+- 🚀 Route permission interception (404 page) and page button permission configuration using custom high - level components
+- 🚀 Supports React-Router v6 route lazy loading configuration, menu accordion mode, unlimited menu, multi-tab, and breadcrumb navigation
+- 🚀 Using Prettier to format code uniformly, integrating Eslint and Stylelint code validation specifications (project specifications configuration)
+- 🚀 Commit information using husky, lint-staged, commitlint, commitizen, cz-git specifications (project specifications configuration)
 
-### 四、📦 快速开始
+### 四、📦 Fast start
 
 - **Install：**
 
@@ -55,20 +57,20 @@ yarn || npm install
 
 yarn dev || npm run dev
 
-# npm install 安装失败，请升级 nodejs 到 16 以上，或尝试使用以下命令：
+# npm install fails to install nodejs. Upgrade nodejs to a higher level than 16, or try the following command：
 npm install --registry=https://registry.npm.taobao.org
 ```
 
 - **Build：**
 
 ```text
-# 开发环境
+# Development environment
 yarn build:dev
 
-# 测试环境
+# Test environment
 yarn build:test
 
-# 生产环境
+# Production environment
 yarn build:pro
 ```
 
@@ -87,31 +89,31 @@ yarn build:mac
 - **Lint：**
 
 ```text
-# eslint 检测代码
+# eslint Detection code
 yarn lint:eslint
 
-# prettier 格式化代码
+# prettier Formatting code
 yarn lint:prettier
 
-# stylelint 格式化样式
+# stylelint Formatting style
 yarn lint:stylelint
 ```
 
 - **commit：**
 
 ```text
-# 提交代码（会自动执行 lint:lint-staged 命令）
+# Commit code (the lint: Lint-staged command automatically executes)
 yarn commit
 ```
 
-### 五、📦 docker 以及 docker-compose 部署
+### 五、📦 docker and Docker-compose deployment
 
 1. docker build -t react-admin:v1 .
 
-> m1 打包运行：docker buildx build -t react-admin:v1 --platform linux/amd64 .
-> 可能需要在加前缀 **DOCKER_BUILDKIT=0**
+> mac m1 is packaged and running：docker buildx build -t react-admin:v1 --platform linux/amd64 .
+> You may need to add a prefix **DOCKER_BUILDKIT=0**
 
 2. docker run -d -p 80:80 --name react-admin react-admin:v1
 
-3. docker-compose 在另一个项目一起部署
+3. docker-compose is deployed together in another project
    > https://github.com/zard999/cost-egg
