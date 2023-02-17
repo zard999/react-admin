@@ -23,7 +23,7 @@ const authorityManagementRouter = [
         path: '/authorityManagement/position',
         element: lazyLoad(lazy(() => import('@/views/authorityManagement/position'))),
         meta: {
-          title: '岗位管理'
+          title: '角色管理'
         }
       }
     ]

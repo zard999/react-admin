@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-02 10:04:20
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-03 11:37:53
+ * @LastEditTime: 2023-02-17 17:58:35
  * @FilePath: /vite-project/src/layouts/components/menu/index.tsx
  * @Description: menu
  *
@@ -22,6 +22,8 @@ type MenuItem = Required<MenuProps>['items'][number];
 
 function getItem(
   label: React.ReactNode,
+  title: React.ReactNode,
+  value: React.Key,
   key: React.Key,
   icon?: React.ReactNode,
   children?: MenuItem[],
@@ -32,7 +34,9 @@ function getItem(
     icon,
     children,
     label,
-    type
+    type,
+    title,
+    value
   } as MenuItem;
 }
 
@@ -42,15 +46,30 @@ const handleMenuData = (rootRouter: any[], authRouter: any[], newArr: MenuItem[]
     console.log('item', rootRouter, item.path);
     if (authRouter.includes(item.path)) {
       if (!item?.children?.length) {
-        let currentItem = getItem(item?.meta?.title, item.path, item?.meta?.icon);
+        let currentItem = getItem(item?.meta?.title, item?.meta?.title, item.path, item.path, item?.meta?.icon);
         return newArr.push(currentItem);
       }
       // 一个子路由时特殊处理
       if (item?.children?.length === 1) {
-        let currentItem = getItem(item?.meta?.title, item.children[0].path, item?.meta?.icon);
+        let currentItem = getItem(
+          item?.meta?.title,
+          item?.meta?.title,
+          item.children[0].path,
+          item.children[0].path,
+          item?.meta?.icon
+        );
         return newArr.push(currentItem);
       }
-      newArr.push(getItem(item?.meta?.title, item.path, item?.meta?.icon, handleMenuData(item?.children, authRouter)));
+      newArr.push(
+        getItem(
+          item?.meta?.title,
+          item?.meta?.title,
+          item.path,
+          item.path,
+          item?.meta?.icon,
+          handleMenuData(item?.children, authRouter)
+        )
+      );
     }
   });
   return newArr;
@@ -58,12 +77,11 @@ const handleMenuData = (rootRouter: any[], authRouter: any[], newArr: MenuItem[]
 
 const LayoutMenu = observer(() => {
   const navigate = useNavigate();
-  const { permissions, isCollapse } = globalStore;
+  const { permissions, isCollapse, menuList } = globalStore;
   const [menuActive, setMenuActive] = useState('');
-  const [menuList, setMenuList] = useState<any[]>([]);
 
   useEffect(() => {
-    setMenuList(handleMenuData(rootRouter, permissions));
+    globalStore.setMenuList(handleMenuData(rootRouter, permissions));
   }, []);
 
   useLocationListen((location: Location) => {

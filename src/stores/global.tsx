@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-02 17:27:57
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-15 12:45:55
+ * @LastEditTime: 2023-02-17 17:33:17
  * @FilePath: /vite-project/src/stores/global.tsx
  * @Description: globalStore
  *
@@ -20,7 +20,6 @@ interface IThemeConfig {
 
 class Global {
   permissions: any[] = [
-    '/home',
     '/home/index',
     '/proTable',
     '/proTable/useHooks1',

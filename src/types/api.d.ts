@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-04 12:39:35
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-16 10:34:07
+ * @LastEditTime: 2023-02-17 15:43:53
  * @FilePath: /vite-project/src/types/api.d.ts
  * @Description: 请求数据类型定义
  *
@@ -66,6 +66,13 @@ declare namespace API {
     Address?: string;
   }
 
+  interface RoleInfo {
+    id: number;
+    roleName: string;
+    description: string;
+    ctime: string;
+  }
+
   interface LoginData {
     SessionKey: string;
     UserInfo: UserInfo;
@@ -81,7 +88,21 @@ declare namespace API {
     password: string;
   }
 
-  interface UserListParams {
+  interface AddRoleParams {
+    roleName: string;
+    description: string;
+    permissions: string;
+  }
+
+  interface RoleListData {
+    list: Array<RoleInfo>;
+    current: number;
+    pageSize: number;
+    total: number;
+  }
+
+  // 表格查询参数
+  interface ListParams {
     current: number;
     pageSize: number;
   }

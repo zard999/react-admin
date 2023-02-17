@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-15 14:27:49
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-16 10:39:25
+ * @LastEditTime: 2023-02-17 15:26:00
  * @FilePath: /vite-project/src/views/authorityManagement/user/index.tsx
  * @Description: User
  *
@@ -23,12 +23,12 @@ const { Search } = Input;
 
 const columns = [
   {
-    title: '角色名称',
+    title: '用户名称',
     dataIndex: 'username',
     key: 'username'
   },
   {
-    title: '职位',
+    title: '个性签名',
     dataIndex: 'signature',
     key: 'signature'
   },
@@ -106,7 +106,7 @@ const User = observer(() => {
     <div>
       <Card bordered={false}>
         <div className="header">
-          <Search placeholder="请输入角色名称关键词" loading={false} onSearch={onSearch} style={{ width: 200 }} />
+          <Search placeholder="请输入用户名称关键词" loading={false} onSearch={onSearch} style={{ width: 200 }} />
           <div></div>
           <Button type="primary" loading={false} onClick={showModal}>
             新增用户

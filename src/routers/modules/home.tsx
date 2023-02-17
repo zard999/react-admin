@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-02 17:44:00
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-15 13:43:21
+ * @LastEditTime: 2023-02-17 17:34:00
  * @FilePath: /vite-project/src/routers/modules/home.tsx
  * @Description: home路由
  *
@@ -15,7 +15,7 @@ import { HomeOutlined } from '@ant-design/icons';
 const homeRouter = [
   {
     element: <LayoutIndex />,
-    path: '/home',
+    path: '/home/index',
     meta: {
       title: '首页',
       icon: <HomeOutlined />,
