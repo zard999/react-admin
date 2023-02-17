@@ -7,7 +7,7 @@
 
 <div align="center">中后台管理系统通用模板</div>
 
-English | [简体中文](./README.cn.md)
+简体中文 | [English](./README.cn.md)
 
 <div align="center">
 <br />

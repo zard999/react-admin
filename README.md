@@ -7,7 +7,7 @@
 
 <div align="center">Common template for the middle and background management system</div>
 
-简体中文 | [English ](./README.md)
+English | [简体中文](./README.md)
 
 <div align="center">
 <br />
