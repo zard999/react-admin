@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-17 15:27:21
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-17 15:33:46
+ * @LastEditTime: 2023-02-18 16:06:57
  * @FilePath: /vite-project/src/api/modules/role.ts
  * @Description: 角色相关接口
  *
@@ -14,4 +14,7 @@ import request from '@/utils/request';
 export const addRole = async (params: Expand<API.AddRoleParams>) => request.post('role/addRole', params);
 
 // 获取角色列表
-export const getRoleList = async (params: Expand<API.ListParams>) => request.get('role/getRoleList', params);
+export const getRoleList = async (params?: Expand<API.ListParams>) => request.get('role/getRoleList', { params });
+
+// 获取用户对应角色的权限信息
+export const getRolePermissions = async (params?: { id: number }) => request.get('role/getRolePermissions', { params });

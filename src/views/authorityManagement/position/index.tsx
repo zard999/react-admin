@@ -2,14 +2,14 @@
  * @Author: zyh
  * @Date: 2023-02-15 14:27:49
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-17 15:51:52
+ * @LastEditTime: 2023-02-18 15:18:37
  * @FilePath: /vite-project/src/views/authorityManagement/position/index.tsx
  * @Description: 角色管理
  *
  * Copyright (c) 2023 by 穿越, All Rights Reserved.
  */
 import { useState, useEffect } from 'react';
-import { Card, Input, Button, Table } from 'antd';
+import { Card, Input, Button, Table, Popconfirm } from 'antd';
 import RoleDialogForm from './roleDialogForm';
 import { observer } from 'mobx-react';
 import { useRequest } from 'ahooks';
@@ -21,24 +21,6 @@ import './index.less';
 
 const { Search } = Input;
 
-const columns = [
-  {
-    title: '角色名称',
-    dataIndex: 'roleName',
-    key: 'roleName'
-  },
-  {
-    title: '权限描述',
-    dataIndex: 'description',
-    key: 'description'
-  },
-  {
-    title: '创建时间',
-    dataIndex: 'ctime',
-    key: 'ctime'
-  }
-];
-
 const Position = observer(() => {
   const [tableData, setTableData] = useState<Record<string, any>>({
     list: [],
@@ -47,6 +29,66 @@ const Position = observer(() => {
     total: 0
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [title, setTitle] = useState('');
+  const [dataRef, setDataRef] = useState({
+    roleName: '',
+    description: '',
+    permissions: []
+  }); // 为了更改表单初始值
+  const columns = [
+    {
+      title: '角色名称',
+      dataIndex: 'roleName',
+      key: 'roleName'
+    },
+    {
+      title: '权限描述',
+      dataIndex: 'description',
+      key: 'description'
+    },
+    {
+      title: '创建时间',
+      dataIndex: 'created_at',
+      key: 'created_at'
+    },
+    {
+      title: '操作',
+      dataIndex: 'id',
+      render: (_: any, record: IAddRoleFormData) =>
+        tableData.list.length >= 1 ? (
+          <div>
+            <Button
+              type="primary"
+              style={{ marginRight: '10px' }}
+              onClick={() => {
+                setTitle('编辑角色');
+                setDataRef({
+                  roleName: record.roleName,
+                  description: record.description,
+                  permissions: JSON.parse(record.permissions)
+                });
+                setIsModalOpen(true);
+              }}
+            >
+              编辑
+            </Button>
+            <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.id)}>
+              <Button danger type="primary">
+                删除
+              </Button>
+            </Popconfirm>
+          </div>
+        ) : null
+    }
+  ];
+
+  useEffect(() => {
+    run({
+      current: 1,
+      pageSize: 10
+    });
+  }, []);
+
   // 获取用户列表
   const { run, loading } = useRequest(getRoleList, {
     manual: true,
@@ -59,7 +101,7 @@ const Position = observer(() => {
     onSuccess: (result, params) => {
       setTableData({
         ...result,
-        list: result.list.map((item: any) => ({ ...item, ctime: moment(+item.ctime).format('YYYY-MM-DD HH:mm:ss') }))
+        list: result.list.map((item: any) => ({ ...item, created_at: moment(+item.created_at).format('YYYY-MM-DD HH:mm:ss') }))
       });
       console.log('params', result, params);
     }
@@ -72,15 +114,26 @@ const Position = observer(() => {
       console.log('params', result, params);
     }
   });
-  useEffect(() => {
-    run({
-      current: 1,
-      pageSize: 10
+
+  // 删除用户
+  const handleDelete = (key: React.Key) => {
+    const newData = tableData.list.filter((item: any) => item.key !== key);
+    setTableData({
+      ...tableData.list,
+      list: newData
     });
-  }, []);
+  };
+
   const onSearch = (value: string) => console.log(value);
   const handleTableChange = () => {};
   const showModal = () => {
+    setTitle('新增角色');
+    setDataRef({
+      roleName: '',
+      description: '',
+      permissions: []
+    });
+
     setIsModalOpen(true);
   };
 
@@ -150,8 +203,9 @@ const Position = observer(() => {
         </div>
       </Card>
       <RoleDialogForm
-        title="新增角色"
+        title={title}
         loading={addRoleObj.loading}
+        dataRef={dataRef}
         isModalOpen={isModalOpen}
         handleOk={handleOk}
         handleCancel={handleCancel}

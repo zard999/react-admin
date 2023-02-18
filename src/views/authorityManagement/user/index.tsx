@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-15 14:27:49
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-17 15:26:00
+ * @LastEditTime: 2023-02-18 14:37:33
  * @FilePath: /vite-project/src/views/authorityManagement/user/index.tsx
  * @Description: User
  *
@@ -14,6 +14,7 @@ import UserDialogForm from './userDialogForm';
 import { observer } from 'mobx-react';
 import { useRequest } from 'ahooks';
 import { getUserList, addUser } from '@/api/modules/user';
+import { getRoleList } from '@/api/modules/role';
 import moment from 'moment';
 import type { IAddUserFormData } from './interface';
 import { FormInstance } from 'antd/lib/form';
@@ -47,6 +48,8 @@ const User = observer(() => {
     total: 0
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [roleList, setRoleList] = useState([]);
+
   // 获取用户列表
   const { run, loading } = useRequest(getUserList, {
     manual: true,
@@ -65,11 +68,20 @@ const User = observer(() => {
     }
   });
 
+  // 获取角色列表
+  const roleObj = useRequest(getRoleList, {
+    manual: true,
+    onSuccess: (result, params) => {
+      setRoleList(result);
+      console.log('getRoleList', result, params);
+    }
+  });
+
   // 新增用户
   const addUserObj = useRequest(addUser, {
     manual: true, // 手动触发
     onSuccess: (result, params) => {
-      console.log('params', result, params);
+      console.log('addUser', result, params);
     }
   });
   useEffect(() => {
@@ -81,13 +93,13 @@ const User = observer(() => {
   const onSearch = (value: string) => console.log(value);
   const handleTableChange = () => {};
   const showModal = () => {
+    roleObj.run();
     setIsModalOpen(true);
   };
 
   const handleOk = async (addUserForm: IAddUserFormData, form: FormInstance) => {
     try {
-      const res = await addUserObj.runAsync(addUserForm);
-      console.log('res', res);
+      await addUserObj.runAsync(addUserForm);
       form.resetFields();
       setIsModalOpen(false);
       run({
@@ -153,6 +165,7 @@ const User = observer(() => {
         title="新增用户"
         loading={addUserObj.loading}
         isModalOpen={isModalOpen}
+        roleList={roleList}
         handleOk={handleOk}
         handleCancel={handleCancel}
       />

@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-02 17:27:57
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-17 17:33:17
+ * @LastEditTime: 2023-02-18 16:43:15
  * @FilePath: /vite-project/src/stores/global.tsx
  * @Description: globalStore
  *
@@ -19,15 +19,7 @@ interface IThemeConfig {
 }
 
 class Global {
-  permissions: any[] = [
-    '/home/index',
-    '/proTable',
-    '/proTable/useHooks1',
-    '/proTable/useHooks2',
-    '/authorityManagement',
-    '/authorityManagement/user',
-    '/authorityManagement/position'
-  ]; // 权限列表
+  permissions: any[] = []; // 权限列表
   userInfo: Record<string, any> = {}; // 用户信息
   isCollapse: boolean = false; // 侧边栏是否折叠
   themeConfig: IThemeConfig = {
@@ -72,6 +64,11 @@ class Global {
   // 清除用户信息
   clearUserInfo() {
     this.userInfo = {};
+  }
+
+  // 设置权限列表
+  setPermissions(permissions: any[]) {
+    this.permissions = permissions;
   }
 }
 

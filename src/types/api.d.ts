@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-04 12:39:35
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-17 15:43:53
+ * @LastEditTime: 2023-02-18 16:13:44
  * @FilePath: /vite-project/src/types/api.d.ts
  * @Description: 请求数据类型定义
  *
@@ -60,10 +60,11 @@ declare namespace API {
   };
 
   interface UserInfo {
-    Name?: string;
-    Email?: string;
-    Phone?: string;
-    Address?: string;
+    avatar: string;
+    id: number;
+    signature: string;
+    token: string;
+    username: string;
   }
 
   interface RoleInfo {
@@ -74,8 +75,11 @@ declare namespace API {
   }
 
   interface LoginData {
-    SessionKey: string;
-    UserInfo: UserInfo;
+    avatar: string;
+    id: number;
+    signature: string;
+    token: string;
+    username: string;
   }
 
   interface LoginParams {

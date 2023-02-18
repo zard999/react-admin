@@ -2,13 +2,12 @@
  * @Author: zyh
  * @Date: 2023-02-15 21:16:29
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-17 18:01:18
+ * @LastEditTime: 2023-02-17 19:54:20
  * @FilePath: /vite-project/src/views/authorityManagement/position/roleDialogForm/index.tsx
  * @Description: userDialogForm
  *
  * Copyright (c) 2023 by 穿越, All Rights Reserved.
  */
-import { useState } from 'react';
 import { Form, Input, Modal, Button, TreeSelect } from 'antd';
 import { CloseCircleOutlined, UserOutlined } from '@ant-design/icons';
 import { FormInstance } from 'antd/lib/form';
@@ -17,8 +16,10 @@ import { globalStore } from '@/stores';
 // import type { DataNode } from 'antd/es/tree';
 import type { IAddRoleFormData } from '../interface';
 import './index.less';
+import { useEffect } from 'react';
 
 const { SHOW_ALL } = TreeSelect;
+const { TextArea } = Input;
 
 const formItemLayout = {
   labelCol: {
@@ -37,19 +38,23 @@ interface IProps {
   loading?: boolean;
   handleOk: (addUserForm: IAddRoleFormData, form: FormInstance) => void;
   handleCancel: () => void;
+  dataRef?: any;
 }
 
 const UserDialogForm: React.FC<IProps> = observer(props => {
-  const { isModalOpen, title, handleOk, handleCancel, loading } = props;
+  const { isModalOpen, title, handleOk, handleCancel, loading, dataRef } = props;
   const { menuList } = globalStore;
-  console.log('menuList', menuList);
+
   const [form] = Form.useForm();
 
-  const [value, setValue] = useState(['0-0-0']);
+  useEffect(() => {
+    form.setFieldsValue({
+      ...dataRef
+    });
+  }, [dataRef]);
 
   const onChange = (newValue: string[]) => {
-    console.log('onChange ', value);
-    setValue(newValue);
+    console.log('onChange ', newValue);
   };
 
   // login
@@ -64,11 +69,10 @@ const UserDialogForm: React.FC<IProps> = observer(props => {
 
   const tProps = {
     treeData: menuList,
-    value,
     onChange,
     treeCheckable: true,
     showCheckedStrategy: SHOW_ALL,
-    placeholder: 'Please select',
+    placeholder: '请选择角色权限',
     style: {
       width: '100%'
     }
@@ -81,7 +85,7 @@ const UserDialogForm: React.FC<IProps> = observer(props => {
         form={form}
         name="basic"
         labelCol={{ span: 5 }}
-        initialValues={{ remember: true }}
+        initialValues={dataRef}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         size="large"
@@ -91,7 +95,7 @@ const UserDialogForm: React.FC<IProps> = observer(props => {
           <Input placeholder="请输入角色名称" />
         </Form.Item>
         <Form.Item label="角色描述" name="description" rules={[{ required: true, message: '请输入角色描述' }]}>
-          <Input placeholder="请输入角色描述" />
+          <TextArea rows={4} placeholder="请输入角色描述" />
         </Form.Item>
 
         <Form.Item label="角色权限" name="permissions" rules={[{ required: true, message: '请输入角色描述' }]}>
@@ -100,7 +104,7 @@ const UserDialogForm: React.FC<IProps> = observer(props => {
         <Form.Item>
           <Button
             onClick={() => {
-              form.resetFields();
+              // form.resetFields();
               handleCancel();
             }}
             size="middle"

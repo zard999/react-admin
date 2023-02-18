@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-04 11:51:42
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-07 18:09:56
+ * @LastEditTime: 2023-02-18 16:43:09
  * @FilePath: /vite-project/src/views/login/components/loginForm/index.tsx
  * @Description: 登录表单
  *
@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { UserOutlined, LockOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { useRequest } from 'ahooks';
 import { login } from '@/api/modules/user';
+import { getRolePermissions } from '@/api/modules/role';
 import { globalStore } from '@/stores';
 
 const LoginForm = observer(() => {
@@ -21,16 +22,25 @@ const LoginForm = observer(() => {
   const [form] = Form.useForm();
   const { loading, run } = useRequest(login, {
     manual: true, // 手动触发
-    onSuccess: (result, params) => {
-      navigate('/home/index');
+    onSuccess: result => {
       globalStore.setUserInfo(result);
-      console.log('params', result, params);
+      rolePermissionsObj.run({ id: result.id });
+    }
+  });
+
+  const rolePermissionsObj = useRequest(getRolePermissions, {
+    manual: true,
+    onSuccess: result => {
+      globalStore.setPermissions(result.permissions);
+      navigate('/home/index');
+      console.log('rolePermissionsObj', result);
     }
   });
 
   // login
   const onFinish = (loginForm: any) => {
     run(loginForm);
+    console.log('navigate', navigate);
   };
 
   const onFinishFailed = (errorInfo: any) => {

@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-02 20:43:52
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-07 17:31:47
+ * @LastEditTime: 2023-02-18 17:10:13
  * @FilePath: /vite-project/src/routers/authRouter.tsx
  * @Description: 路由守卫组件
  *
@@ -40,7 +40,7 @@ const AuthRouter = (props: { children: JSX.Element }) => {
   const staticRouter = ['/404', '/', '/login'];
   const routerList = permissions.concat(staticRouter);
   // * 如果访问的地址没有在路由表中重定向到404页面
-  console.log('routerList', routerList, pathname);
+  console.log('routerList', routerList, pathname, props.children);
   if (routerList.indexOf(pathname) == -1) return <Navigate to="404" />;
 
   // * 当前账号有权限返回 Router，正常访问页面

@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-02 20:47:33
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-07 21:28:09
+ * @LastEditTime: 2023-02-18 15:10:16
  * @FilePath: /vite-project/src/utils/index.ts
  * @Description: 工具函数
  *
@@ -104,3 +104,17 @@ export function downloadStreamFile(streamData: BlobPart, fileName = '', type?: a
   downloadFile(fileUrl, fileName);
   window.URL.revokeObjectURL(fileUrl); // 释放内存
 }
+
+/**
+ * @description 随机生成颜色
+ * @returns string
+ *
+ */
+export const randomColor = () => {
+  return (
+    '#' +
+    Math.floor(Math.random() * 0xffffff)
+      .toString(16)
+      .padEnd(6, '0')
+  );
+};

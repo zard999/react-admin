@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-15 21:16:29
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-16 11:12:40
+ * @LastEditTime: 2023-02-18 15:51:37
  * @FilePath: /vite-project/src/views/authorityManagement/user/userDialogForm/index.tsx
  * @Description: userDialogForm
  *
@@ -14,8 +14,6 @@ import { FormInstance } from 'antd/lib/form';
 import { observer } from 'mobx-react';
 import type { IAddUserFormData } from '../interface';
 import './index.less';
-
-const { Option } = Select;
 
 const formItemLayout = {
   labelCol: {
@@ -32,13 +30,15 @@ interface IProps {
   isModalOpen: boolean;
   title?: string;
   loading?: boolean;
+  roleList: any[];
   handleOk: (addUserForm: IAddUserFormData, form: FormInstance) => void;
   handleCancel: () => void;
 }
 
 const UserDialogForm: React.FC<IProps> = observer(props => {
-  const { isModalOpen, title, handleOk, handleCancel, loading } = props;
+  const { isModalOpen, title, handleOk, handleCancel, loading, roleList } = props;
   const [form] = Form.useForm();
+  // const options = [{ value: '#341243' }, { value: '#ad3412' }, { value: 'green' }, { value: 'cyan' }];
 
   // login
   const onFinish = (addUserForm: IAddUserFormData) => {
@@ -69,12 +69,15 @@ const UserDialogForm: React.FC<IProps> = observer(props => {
         <Form.Item label="密码" name="password" rules={[{ required: true, message: '请输入密码' }]}>
           <Input.Password autoComplete="new-password" placeholder="请输入密码" />
         </Form.Item>
-        <Form.Item label="职位" name="position">
-          <Select placeholder="请选择职位" allowClear>
-            <Option value="1">Option 1</Option>
-            <Option value="2">Option 2</Option>
-            <Option value="3">Option 3</Option>
-          </Select>
+        <Form.Item label="角色" name="roleName">
+          <Select
+            mode="multiple"
+            allowClear
+            style={{ width: '100%' }}
+            placeholder="请绑定角色"
+            defaultValue={[]}
+            options={roleList.map(item => ({ label: item.roleName, value: item.roleName }))}
+          />
         </Form.Item>
         <Form.Item>
           <Button
