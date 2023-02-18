@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-15 21:16:29
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-17 19:54:20
+ * @LastEditTime: 2023-02-18 18:45:02
  * @FilePath: /vite-project/src/views/authorityManagement/position/roleDialogForm/index.tsx
  * @Description: userDialogForm
  *
@@ -12,8 +12,8 @@ import { Form, Input, Modal, Button, TreeSelect } from 'antd';
 import { CloseCircleOutlined, UserOutlined } from '@ant-design/icons';
 import { FormInstance } from 'antd/lib/form';
 import { observer } from 'mobx-react';
-import { globalStore } from '@/stores';
 // import type { DataNode } from 'antd/es/tree';
+import { treePermissions } from '@/routers';
 import type { IAddRoleFormData } from '../interface';
 import './index.less';
 import { useEffect } from 'react';
@@ -43,7 +43,6 @@ interface IProps {
 
 const UserDialogForm: React.FC<IProps> = observer(props => {
   const { isModalOpen, title, handleOk, handleCancel, loading, dataRef } = props;
-  const { menuList } = globalStore;
 
   const [form] = Form.useForm();
 
@@ -68,7 +67,7 @@ const UserDialogForm: React.FC<IProps> = observer(props => {
   };
 
   const tProps = {
-    treeData: menuList,
+    treeData: treePermissions,
     onChange,
     treeCheckable: true,
     showCheckedStrategy: SHOW_ALL,

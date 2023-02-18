@@ -2,13 +2,14 @@
  * @Author: zyh
  * @Date: 2023-02-02 20:47:33
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-18 15:10:16
+ * @LastEditTime: 2023-02-18 18:42:19
  * @FilePath: /vite-project/src/utils/index.ts
  * @Description: 工具函数
  *
  * Copyright (c) 2023 by 穿越, All Rights Reserved.
  */
 import { RouteObject } from '@/routers/interface';
+import { type BaseOptionType } from 'rc-tree-select/lib/TreeSelect';
 
 /**
  * @description 递归查询对应的路由
@@ -117,4 +118,28 @@ export const randomColor = () => {
       .toString(16)
       .padEnd(6, '0')
   );
+};
+
+/**
+ * @description 根据路由生产树状结构
+ */
+export const generateTree = (routerArray: RouteObject[]): BaseOptionType[] => {
+  return routerArray.map(item => {
+    if (item.children) {
+      return {
+        ...item,
+        title: item.meta?.title,
+        key: item.path,
+        value: item.path,
+        children: generateTree(item.children)
+      };
+    } else {
+      return {
+        ...item,
+        title: item.meta?.title,
+        key: item.path,
+        value: item.path
+      };
+    }
+  });
 };

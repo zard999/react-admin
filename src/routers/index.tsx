@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-01 17:43:03
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-16 18:50:23
+ * @LastEditTime: 2023-02-18 18:42:32
  * @FilePath: /vite-project/src/routers/index.tsx
  * @Description:
  *
@@ -12,6 +12,7 @@ import { lazy } from 'react';
 import { RouteObject } from '@/routers/interface';
 import { Navigate, useRoutes } from 'react-router-dom';
 import lazyLoad from '@/components/lazyLoad/';
+import { generateTree } from '@/utils/';
 
 // 导入所有router
 const metaRouters: Record<string, any> = import.meta.glob('./modules/*.tsx', { eager: true });
@@ -25,6 +26,9 @@ Object.keys(metaRouters).forEach((item: any) => {
 });
 routerArray.sort((a: any, b: any) => a.meta.sort - b.meta.sort);
 console.log('routerArray', routerArray);
+
+// * 递归routerArray，生成树形结构
+export const treePermissions = generateTree(routerArray);
 
 export const rootRouter: RouteObject[] = [
   {
