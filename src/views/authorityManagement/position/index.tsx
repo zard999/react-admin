@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-15 14:27:49
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-18 18:18:00
+ * @LastEditTime: 2023-02-18 19:24:12
  * @FilePath: /vite-project/src/views/authorityManagement/position/index.tsx
  * @Description: 角色管理
  *
@@ -13,16 +13,18 @@ import { Card, Input, Button, Table, Popconfirm } from 'antd';
 import RoleDialogForm from './roleDialogForm';
 import { observer } from 'mobx-react';
 import { useRequest } from 'ahooks';
-import { getRoleList, addRole } from '@/api/modules/role';
+import { getRoleList, addRole, editRoleInfo } from '@/api/modules/role';
 import moment from 'moment';
 import type { IAddRoleFormData } from './interface';
 import { FormInstance } from 'antd/lib/form';
 import './index.less';
 
+type IData = Record<string, any>;
+
 const { Search } = Input;
 
 const Position = observer(() => {
-  const [tableData, setTableData] = useState<Record<string, any>>({
+  const [tableData, setTableData] = useState<IData>({
     list: [],
     current: 1,
     pageSize: 10,
@@ -30,7 +32,7 @@ const Position = observer(() => {
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [title, setTitle] = useState('');
-  const [dataRef, setDataRef] = useState({
+  const [dataRef, setDataRef] = useState<IData>({
     roleName: '',
     description: '',
     permissions: []
@@ -65,7 +67,8 @@ const Position = observer(() => {
                 setDataRef({
                   roleName: record.roleName,
                   description: record.description,
-                  permissions: JSON.parse(record.permissions)
+                  permissions: JSON.parse(record.permissions),
+                  id: record.id
                 });
                 setIsModalOpen(true);
               }}
@@ -124,6 +127,14 @@ const Position = observer(() => {
     });
   };
 
+  // 编辑用户信息
+  const editRoleInfoObj = useRequest(editRoleInfo, {
+    manual: true, // 手动触发
+    onSuccess: (result, params) => {
+      console.log('params', result, params);
+    }
+  });
+
   const onSearch = (value: string) => console.log(value);
   const handleTableChange = () => {};
   const showModal = () => {
@@ -137,10 +148,13 @@ const Position = observer(() => {
     setIsModalOpen(true);
   };
 
-  const handleOk = async (addRoleForm: IAddRoleFormData, form: FormInstance) => {
+  const handleOk = async (addRoleForm: IAddRoleFormData, form: FormInstance, title: string) => {
     try {
-      const res = await addRoleObj.runAsync(addRoleForm);
-      console.log('res', res);
+      if (title === '新增角色') {
+        await addRoleObj.runAsync(addRoleForm);
+      } else {
+        await editRoleInfoObj.runAsync(addRoleForm);
+      }
       form.resetFields();
       setIsModalOpen(false);
       run({

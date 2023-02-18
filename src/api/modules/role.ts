@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-17 15:27:21
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-18 16:06:57
+ * @LastEditTime: 2023-02-18 19:05:32
  * @FilePath: /vite-project/src/api/modules/role.ts
  * @Description: 角色相关接口
  *
@@ -18,3 +18,6 @@ export const getRoleList = async (params?: Expand<API.ListParams>) => request.ge
 
 // 获取用户对应角色的权限信息
 export const getRolePermissions = async (params?: { id: number }) => request.get('role/getRolePermissions', { params });
+
+// 编辑角色信息
+export const editRoleInfo = async (params: Expand<API.EditRoleParams>) => request.post('role/editRoleInfo', params);

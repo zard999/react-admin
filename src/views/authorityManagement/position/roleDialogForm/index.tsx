@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-15 21:16:29
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-18 18:45:02
+ * @LastEditTime: 2023-02-18 19:21:48
  * @FilePath: /vite-project/src/views/authorityManagement/position/roleDialogForm/index.tsx
  * @Description: userDialogForm
  *
@@ -36,7 +36,7 @@ interface IProps {
   isModalOpen: boolean;
   title?: string;
   loading?: boolean;
-  handleOk: (addUserForm: IAddRoleFormData, form: FormInstance) => void;
+  handleOk: (addUserForm: IAddRoleFormData, form: FormInstance, title: string) => void;
   handleCancel: () => void;
   dataRef?: any;
 }
@@ -56,10 +56,13 @@ const UserDialogForm: React.FC<IProps> = observer(props => {
     console.log('onChange ', newValue);
   };
 
-  // login
+  // save
   const onFinish = (addUserForm: IAddRoleFormData) => {
     console.log('form', addUserForm);
-    handleOk(addUserForm, form);
+    if (dataRef.id) {
+      addUserForm['id'] = dataRef.id;
+    }
+    handleOk(addUserForm, form, title as string);
   };
 
   const onFinishFailed = (errorInfo: any) => {

@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-04 12:39:35
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-18 16:13:44
+ * @LastEditTime: 2023-02-18 19:06:09
  * @FilePath: /vite-project/src/types/api.d.ts
  * @Description: 请求数据类型定义
  *
@@ -93,6 +93,13 @@ declare namespace API {
   }
 
   interface AddRoleParams {
+    roleName: string;
+    description: string;
+    permissions: string;
+  }
+
+  interface EditRoleParams {
+    id: number;
     roleName: string;
     description: string;
     permissions: string;
