@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-15 21:16:29
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-19 22:01:57
+ * @LastEditTime: 2023-02-19 22:16:59
  * @FilePath: /vite-project/src/views/authorityManagement/user/userDialogForm/index.tsx
  * @Description: userDialogForm
  *
@@ -32,7 +32,7 @@ interface IProps {
   title?: string;
   loading?: boolean;
   roleList: any[];
-  handleOk: (addUserForm: IAddUserFormData, form: FormInstance) => void;
+  handleOk: (addUserForm: IAddUserFormData, form: FormInstance, title: string) => void;
   handleCancel: () => void;
   dataRef?: any;
 }
@@ -53,7 +53,7 @@ const UserDialogForm: React.FC<IProps> = observer(props => {
     if (dataRef.id) {
       addUserForm['id'] = dataRef.id;
     }
-    handleOk(addUserForm, form);
+    handleOk(addUserForm, form, title);
   };
 
   const onFinishFailed = (errorInfo: any) => {

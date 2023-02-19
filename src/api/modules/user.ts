@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-04 12:32:18
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-19 21:38:53
+ * @LastEditTime: 2023-02-19 22:13:26
  * @FilePath: /vite-project/src/api/modules/user.ts
  * @Description: login api
  *
@@ -31,3 +31,6 @@ export const getRoleInfoByUserId = async (params: Expand<API.GetRoleByUserIdPara
   request.get('/user/getRoleInfoByUserId', {
     params
   });
+
+// 编辑用户信息
+export const editUserInfo = async (params: Expand<API.EditUserInfoParams>) => request.post('/user/editUserInfo', params);

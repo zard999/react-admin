@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-04 12:39:35
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-19 21:37:44
+ * @LastEditTime: 2023-02-19 22:13:20
  * @FilePath: /vite-project/src/types/api.d.ts
  * @Description: 请求数据类型定义
  *
@@ -59,6 +59,7 @@ declare namespace API {
     type?: NoticeIconItemType;
   };
 
+  // 用户信息
   interface UserInfo {
     avatar: string;
     id: number;
@@ -67,6 +68,7 @@ declare namespace API {
     username: string;
   }
 
+  // 角色信息
   interface RoleInfo {
     id: number;
     roleName: string;
@@ -82,22 +84,26 @@ declare namespace API {
     username: string;
   }
 
+  // 登录需要传的参数
   interface LoginParams {
     username: string;
     password: string;
   }
 
+  // 添加用户需要传的参数
   interface AddUserParams {
     username: string;
     password: string;
   }
 
+  // 添加角色需要传的参数
   interface AddRoleParams {
     roleName: string;
     description: string;
     permissions: string;
   }
 
+  // 编辑角色信息需要传的参数
   interface EditRoleParams {
     id: number;
     roleName: string;
@@ -105,6 +111,7 @@ declare namespace API {
     permissions: string;
   }
 
+  // 查询角色列表需要传的参数
   interface RoleListData {
     list: Array<RoleInfo>;
     current: number;
@@ -118,6 +125,7 @@ declare namespace API {
     pageSize: number;
   }
 
+  // 查询用户列表需要传的参数
   interface UserListData {
     list: Array<UserInfo>;
     current: number;
@@ -125,7 +133,16 @@ declare namespace API {
     total: number;
   }
 
+  // 根据用户id查询当前用户绑定的角色需要传的参数
   interface GetRoleByUserIdParams {
     id: number;
+  }
+
+  // 编辑用户信息需要传的参数
+  interface EditUserInfoParams {
+    username: string;
+    id: number;
+    password: string;
+    roleName: string[];
   }
 }

@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-15 14:27:49
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-19 22:01:32
+ * @LastEditTime: 2023-02-19 22:15:58
  * @FilePath: /vite-project/src/views/authorityManagement/user/index.tsx
  * @Description: User
  *
@@ -13,7 +13,7 @@ import { Card, Input, Button, Table, Popconfirm } from 'antd';
 import UserDialogForm from './userDialogForm';
 import { observer } from 'mobx-react';
 import { useRequest } from 'ahooks';
-import { getUserList, addUser, getRoleInfoByUserId } from '@/api/modules/user';
+import { getUserList, addUser, getRoleInfoByUserId, editUserInfo } from '@/api/modules/user';
 import { getRoleList } from '@/api/modules/role';
 import moment from 'moment';
 import type { IAddUserFormData } from './interface';
@@ -141,6 +141,14 @@ const User = observer(() => {
     }
   });
 
+  // 编辑用户信息
+  const editRoleInfoObj = useRequest(editUserInfo, {
+    manual: true,
+    onSuccess: (result, params) => {
+      console.log('editUserInfo', result, params);
+    }
+  });
+
   // 删除用户
   const handleDelete = (key: React.Key) => {
     const newData = tableData.list.filter((item: any) => item.key !== key);
@@ -169,9 +177,15 @@ const User = observer(() => {
     setIsModalOpen(true);
   };
 
-  const handleOk = async (addUserForm: IAddUserFormData, form: FormInstance) => {
+  // 确定保存用户信息时的回调
+  const handleOk = async (addUserForm: IAddUserFormData, form: FormInstance, title: string) => {
     try {
-      await addUserObj.runAsync(addUserForm);
+      if (title === '新增角色') {
+        await addUserObj.runAsync(addUserForm);
+      } else {
+        await editRoleInfoObj.runAsync(addUserForm);
+      }
+
       form.resetFields();
       setIsModalOpen(false);
       run({
