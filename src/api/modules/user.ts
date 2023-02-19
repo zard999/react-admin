@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-04 12:32:18
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-17 15:33:38
+ * @LastEditTime: 2023-02-19 21:38:53
  * @FilePath: /vite-project/src/api/modules/user.ts
  * @Description: login api
  *
@@ -25,3 +25,9 @@ export const getUserList = async (params: Expand<API.ListParams>) =>
 
 // 新增用户
 export const addUser = async (params: Expand<API.AddUserParams>) => request.post('/user/register', params);
+
+// 根据用户id查询当前用户绑定的角色
+export const getRoleInfoByUserId = async (params: Expand<API.GetRoleByUserIdParams>) =>
+  request.get('/user/getRoleInfoByUserId', {
+    params
+  });

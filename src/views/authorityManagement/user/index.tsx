@@ -2,18 +2,18 @@
  * @Author: zyh
  * @Date: 2023-02-15 14:27:49
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-18 14:37:33
+ * @LastEditTime: 2023-02-19 22:01:32
  * @FilePath: /vite-project/src/views/authorityManagement/user/index.tsx
  * @Description: User
  *
  * Copyright (c) 2023 by 穿越, All Rights Reserved.
  */
 import { useState, useEffect } from 'react';
-import { Card, Input, Button, Table } from 'antd';
+import { Card, Input, Button, Table, Popconfirm } from 'antd';
 import UserDialogForm from './userDialogForm';
 import { observer } from 'mobx-react';
 import { useRequest } from 'ahooks';
-import { getUserList, addUser } from '@/api/modules/user';
+import { getUserList, addUser, getRoleInfoByUserId } from '@/api/modules/user';
 import { getRoleList } from '@/api/modules/role';
 import moment from 'moment';
 import type { IAddUserFormData } from './interface';
@@ -22,26 +22,10 @@ import './index.less';
 
 const { Search } = Input;
 
-const columns = [
-  {
-    title: '用户名称',
-    dataIndex: 'username',
-    key: 'username'
-  },
-  {
-    title: '个性签名',
-    dataIndex: 'signature',
-    key: 'signature'
-  },
-  {
-    title: '创建时间',
-    dataIndex: 'ctime',
-    key: 'ctime'
-  }
-];
+type IData = Record<string, any>;
 
 const User = observer(() => {
-  const [tableData, setTableData] = useState<Record<string, any>>({
+  const [tableData, setTableData] = useState<IData>({
     list: [],
     current: 1,
     pageSize: 10,
@@ -49,6 +33,66 @@ const User = observer(() => {
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [roleList, setRoleList] = useState([]);
+  const [title, setTitle] = useState('');
+  const [dataRef, setDataRef] = useState<IData>({
+    username: '',
+    password: '',
+    roleName: []
+  }); // 为了更改表单初始值
+
+  const columns = [
+    {
+      title: '用户名称',
+      dataIndex: 'username',
+      key: 'username'
+    },
+    {
+      title: '绑定角色',
+      dataIndex: 'signature',
+      key: 'signature'
+    },
+    {
+      title: '创建时间',
+      dataIndex: 'ctime',
+      key: 'ctime'
+    },
+    {
+      title: '操作',
+      dataIndex: 'id',
+      render: (_: any, record: IAddUserFormData) =>
+        tableData.list.length >= 1 ? (
+          <div>
+            <Button
+              type="primary"
+              style={{ marginRight: '10px' }}
+              onClick={() => {
+                roleObj.run();
+                setTitle('编辑用户');
+                setDataRef({
+                  id: record.id,
+                  username: record.username,
+                  password: record.password
+                });
+                getRoleInfoByUserIdObj.run({ id: record.id });
+                setIsModalOpen(true);
+              }}
+            >
+              编辑
+            </Button>
+            <Popconfirm
+              title={`确定删除 ${record.username} 吗?`}
+              cancelText="取消"
+              okText="确定"
+              onConfirm={() => handleDelete(record.id)}
+            >
+              <Button danger type="primary">
+                删除
+              </Button>
+            </Popconfirm>
+          </div>
+        ) : null
+    }
+  ];
 
   // 获取用户列表
   const { run, loading } = useRequest(getUserList, {
@@ -84,6 +128,28 @@ const User = observer(() => {
       console.log('addUser', result, params);
     }
   });
+
+  // 根据用户id查询当前用户绑定的角色
+  const getRoleInfoByUserIdObj = useRequest(getRoleInfoByUserId, {
+    manual: true,
+    onSuccess: (result, params) => {
+      setDataRef(data => ({
+        ...data,
+        roleName: result
+      }));
+      console.log('getRoleInfoByUserId', result, params);
+    }
+  });
+
+  // 删除用户
+  const handleDelete = (key: React.Key) => {
+    const newData = tableData.list.filter((item: any) => item.key !== key);
+    setTableData({
+      ...tableData.list,
+      list: newData
+    });
+  };
+
   useEffect(() => {
     run({
       current: 1,
@@ -94,6 +160,12 @@ const User = observer(() => {
   const handleTableChange = () => {};
   const showModal = () => {
     roleObj.run();
+    setTitle('新增用户');
+    setDataRef({
+      username: '',
+      password: '',
+      roleName: []
+    });
     setIsModalOpen(true);
   };
 
@@ -162,10 +234,11 @@ const User = observer(() => {
         </div>
       </Card>
       <UserDialogForm
-        title="新增用户"
+        title={title}
         loading={addUserObj.loading}
         isModalOpen={isModalOpen}
         roleList={roleList}
+        dataRef={dataRef}
         handleOk={handleOk}
         handleCancel={handleCancel}
       />

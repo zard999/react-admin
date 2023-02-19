@@ -2,12 +2,13 @@
  * @Author: zyh
  * @Date: 2023-02-15 21:16:29
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-18 18:13:50
+ * @LastEditTime: 2023-02-19 22:01:57
  * @FilePath: /vite-project/src/views/authorityManagement/user/userDialogForm/index.tsx
  * @Description: userDialogForm
  *
  * Copyright (c) 2023 by 穿越, All Rights Reserved.
  */
+import { useEffect } from 'react';
 import { Form, Input, Modal, Select, Button } from 'antd';
 import { CloseCircleOutlined, UserOutlined } from '@ant-design/icons';
 import { FormInstance } from 'antd/lib/form';
@@ -33,16 +34,25 @@ interface IProps {
   roleList: any[];
   handleOk: (addUserForm: IAddUserFormData, form: FormInstance) => void;
   handleCancel: () => void;
+  dataRef?: any;
 }
 
 const UserDialogForm: React.FC<IProps> = observer(props => {
-  const { isModalOpen, title, handleOk, handleCancel, loading, roleList } = props;
+  const { isModalOpen, title, handleOk, handleCancel, loading, roleList, dataRef } = props;
   const [form] = Form.useForm();
-  // const options = [{ value: '#341243' }, { value: '#ad3412' }, { value: 'green' }, { value: 'cyan' }];
+
+  useEffect(() => {
+    form.setFieldsValue({
+      ...dataRef
+    });
+  }, [dataRef]);
 
   // login
   const onFinish = (addUserForm: IAddUserFormData) => {
     console.log('form', form);
+    if (dataRef.id) {
+      addUserForm['id'] = dataRef.id;
+    }
     handleOk(addUserForm, form);
   };
 
@@ -57,7 +67,7 @@ const UserDialogForm: React.FC<IProps> = observer(props => {
         form={form}
         name="basic"
         labelCol={{ span: 5 }}
-        initialValues={{ remember: true }}
+        initialValues={dataRef}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         size="large"
@@ -75,7 +85,7 @@ const UserDialogForm: React.FC<IProps> = observer(props => {
             allowClear
             style={{ width: '100%' }}
             placeholder="请绑定角色"
-            defaultValue={[]}
+            defaultValue={dataRef.roleName}
             options={roleList.map(item => ({ label: item.roleName, value: item.roleName }))}
           />
         </Form.Item>

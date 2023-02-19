@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-04 12:39:35
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-18 19:06:09
+ * @LastEditTime: 2023-02-19 21:37:44
  * @FilePath: /vite-project/src/types/api.d.ts
  * @Description: 请求数据类型定义
  *
@@ -123,5 +123,9 @@ declare namespace API {
     current: number;
     pageSize: number;
     total: number;
+  }
+
+  interface GetRoleByUserIdParams {
+    id: number;
   }
 }

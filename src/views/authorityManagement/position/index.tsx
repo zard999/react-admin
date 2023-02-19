@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-15 14:27:49
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-18 19:24:12
+ * @LastEditTime: 2023-02-19 09:40:59
  * @FilePath: /vite-project/src/views/authorityManagement/position/index.tsx
  * @Description: 角色管理
  *
@@ -75,7 +75,12 @@ const Position = observer(() => {
             >
               编辑
             </Button>
-            <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.id)}>
+            <Popconfirm
+              title={`确定删除 ${record.roleName} 吗?`}
+              cancelText="取消"
+              okText="确定"
+              onConfirm={() => handleDelete(record.id)}
+            >
               <Button danger type="primary">
                 删除
               </Button>
@@ -110,7 +115,7 @@ const Position = observer(() => {
     }
   });
 
-  // 新增用户
+  // 新增角色
   const addRoleObj = useRequest(addRole, {
     manual: true, // 手动触发
     onSuccess: (result, params) => {
@@ -118,7 +123,7 @@ const Position = observer(() => {
     }
   });
 
-  // 删除用户
+  // 删除角色
   const handleDelete = (key: React.Key) => {
     const newData = tableData.list.filter((item: any) => item.key !== key);
     setTableData({
@@ -127,7 +132,7 @@ const Position = observer(() => {
     });
   };
 
-  // 编辑用户信息
+  // 编辑角色信息
   const editRoleInfoObj = useRequest(editRoleInfo, {
     manual: true, // 手动触发
     onSuccess: (result, params) => {
