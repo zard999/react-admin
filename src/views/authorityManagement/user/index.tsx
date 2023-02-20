@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-15 14:27:49
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-19 22:15:58
+ * @LastEditTime: 2023-02-20 10:33:10
  * @FilePath: /vite-project/src/views/authorityManagement/user/index.tsx
  * @Description: User
  *
@@ -17,7 +17,6 @@ import { getUserList, addUser, getRoleInfoByUserId, editUserInfo } from '@/api/m
 import { getRoleList } from '@/api/modules/role';
 import moment from 'moment';
 import type { IAddUserFormData } from './interface';
-import { FormInstance } from 'antd/lib/form';
 import './index.less';
 
 const { Search } = Input;
@@ -178,15 +177,13 @@ const User = observer(() => {
   };
 
   // 确定保存用户信息时的回调
-  const handleOk = async (addUserForm: IAddUserFormData, form: FormInstance, title: string) => {
+  const handleOk = async (addUserForm: IAddUserFormData, title: string) => {
     try {
-      if (title === '新增角色') {
+      if (title === '新增用户') {
         await addUserObj.runAsync(addUserForm);
       } else {
         await editRoleInfoObj.runAsync(addUserForm);
       }
-
-      form.resetFields();
       setIsModalOpen(false);
       run({
         current: tableData.current,

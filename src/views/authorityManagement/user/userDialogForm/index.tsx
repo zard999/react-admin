@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-15 21:16:29
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-19 22:16:59
+ * @LastEditTime: 2023-02-20 10:33:19
  * @FilePath: /vite-project/src/views/authorityManagement/user/userDialogForm/index.tsx
  * @Description: userDialogForm
  *
@@ -11,7 +11,6 @@
 import { useEffect } from 'react';
 import { Form, Input, Modal, Select, Button } from 'antd';
 import { CloseCircleOutlined, UserOutlined } from '@ant-design/icons';
-import { FormInstance } from 'antd/lib/form';
 import { observer } from 'mobx-react';
 import type { IAddUserFormData } from '../interface';
 import './index.less';
@@ -32,7 +31,7 @@ interface IProps {
   title?: string;
   loading?: boolean;
   roleList: any[];
-  handleOk: (addUserForm: IAddUserFormData, form: FormInstance, title: string) => void;
+  handleOk: (addUserForm: IAddUserFormData, title: string) => void;
   handleCancel: () => void;
   dataRef?: any;
 }
@@ -53,7 +52,7 @@ const UserDialogForm: React.FC<IProps> = observer(props => {
     if (dataRef.id) {
       addUserForm['id'] = dataRef.id;
     }
-    handleOk(addUserForm, form, title);
+    handleOk(addUserForm, title as string);
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -79,7 +78,7 @@ const UserDialogForm: React.FC<IProps> = observer(props => {
         <Form.Item label="密码" name="password" rules={[{ required: true, message: '请输入密码' }]}>
           <Input.Password autoComplete="new-password" placeholder="请输入密码" />
         </Form.Item>
-        <Form.Item label="角色" name="roleName">
+        <Form.Item label="角色" name="roleName" rules={[{ required: true, message: '请绑定角色' }]}>
           <Select
             mode="multiple"
             allowClear
