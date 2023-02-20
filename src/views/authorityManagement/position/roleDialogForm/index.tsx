@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-15 21:16:29
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-18 19:21:48
+ * @LastEditTime: 2023-02-20 21:47:27
  * @FilePath: /vite-project/src/views/authorityManagement/position/roleDialogForm/index.tsx
  * @Description: userDialogForm
  *
@@ -81,7 +81,7 @@ const UserDialogForm: React.FC<IProps> = observer(props => {
   };
 
   return (
-    <Modal title={title} footer={null} open={isModalOpen} onCancel={handleCancel}>
+    <Modal forceRender title={title} footer={null} open={isModalOpen} onCancel={handleCancel}>
       <Form
         {...formItemLayout}
         form={form}
