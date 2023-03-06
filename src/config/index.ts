@@ -2,7 +2,7 @@
  * @Author: zyh
  * @Date: 2023-02-02 20:49:50
  * @LastEditors: zyh
- * @LastEditTime: 2023-02-14 17:22:50
+ * @LastEditTime: 2023-02-21 14:19:40
  * @FilePath: /vite-project/src/config/index.ts
  * @Description: config配置文件
  *
@@ -18,7 +18,10 @@ export const ROUTER_CONFIG: Record<string, string> = {
   index: '首页',
   proTable: '超级表格',
   useHooks1: '使用 Hooks1',
-  useHooks2: '使用 Hooks2'
+  useHooks2: '使用 Hooks2',
+  authorityManagement: '权限管理',
+  user: '用户管理',
+  position: '角色管理'
 };
 
 // 应用相关
