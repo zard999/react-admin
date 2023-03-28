@@ -21,7 +21,7 @@ English | [简体中文](./README.cn.md)
 <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/strivelen/fine-admin/total">
 </div>
 
-[Online presentation](http://42.192.151.130)
+[Online presentation](http://react.admin.pointfree.cn/)
 
 ### 一、Introduce 📖
 
